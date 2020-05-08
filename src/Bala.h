@@ -8,9 +8,9 @@ class Bala
 public:
 	Bala(int x, int y): x(x), y(y){}
 	int getX();
-	void setX();
+	void setX(int x);
 	int getY();
-	void setY();
+	void setY(int y);
 }
 
 #endif

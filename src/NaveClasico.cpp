@@ -18,9 +18,9 @@ int NaveClasico::choque(WINDOW* ventana, Asteroide* asteroide)
 }
 int NaveClasico::getCorazones()
 {
-
+	return corazones;
 }
 void NaveClasico::setCorazones(int corazones)
 {
-	
+	this->corazones = corazones;
 }

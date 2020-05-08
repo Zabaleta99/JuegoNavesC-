@@ -2,17 +2,17 @@
 
 int Bala::getX()
 {
-
+	return x;
 }
-void Bala::setX()
+void Bala::setX(int x)
 {
-
+	this->x =x;
 }
 int Bala::getY()
 {
-
+	return y;
 }
-void Bala::setY()
+void Bala::setY(int y)
 {
-
+	this->y = y;
 }
