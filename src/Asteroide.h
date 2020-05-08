@@ -8,10 +8,6 @@ class Asteroide
 	int y;
 public:
 	Asteroide(int x, int y): x(x), y(y){}
-	void nuevoAsteroideVertical();
-	void nuevoAsteroideHorizontal();
-	void pintarAsteroideVertical(WINDOW* ventana);
-	void pintarAsteroideHorizontal(WINDOW* ventana);
 	int getX();
 	void setX(int x);
 	int getY();

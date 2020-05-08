@@ -17,6 +17,10 @@ public:
 	virtual WINDOW* mostrarJuego();
 	virtual void tamanyoTerminal();
 	virtual void jugar(Usuario* usuarios, int player);
+	virtual void nuevoAsteroideVertical();
+	virtual void nuevoAsteroideHorizontal();
+	virtual void pintarAsteroideVertical(WINDOW* ventana);
+	virtual void pintarAsteroideHorizontal(WINDOW* ventana);
 	void mostrarNivel(int* num_ast);
 	void mostrarVidaExtra();
 	void nuevaVidaExtra(VidaExtra* vidasExtra, int* num_vidasExtra);

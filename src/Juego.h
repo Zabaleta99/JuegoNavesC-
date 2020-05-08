@@ -12,6 +12,12 @@ public:
 	virtual WINDOW* mostrarJuego() = 0;
 	virtual void tamanyoTerminal() = 0;
 	virtual void jugar(Usuario* usuarios, int player) = 0;
+	virtual void nuevoAsteroideVertical();
+	virtual void nuevoAsteroideHorizontal();
+	virtual void pintarAsteroideVertical(WINDOW* ventana);
+	virtual void pintarAsteroideHorizontal(WINDOW* ventana);
+
+
 };
 
 #endif

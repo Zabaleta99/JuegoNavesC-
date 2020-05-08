@@ -32,6 +32,22 @@ void Supervivencia::jugar(Usuario* usuarios, int player)
 {
 
 }
+void Supervivencia::nuevoAsteroideVertical()
+{
+
+}
+void Supervivencia::nuevoAsteroideHorizontal()
+{
+
+}
+void Supervivencia::pintarAsteroideVertical(WINDOW* ventana)
+{
+
+}
+void Supervivencia::pintarAsteroideHorizontal(WINDOW* ventana)
+{
+
+}
 Supervivencia::Supervivencia()
 {
 

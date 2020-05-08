@@ -12,7 +12,7 @@ int Nave::getY()
 {
 
 }
-void Nave::setY()
+void Nave::setY(int y)
 {
 
 }
@@ -20,7 +20,7 @@ int Nave::getVidas()
 {
 
 }
-void Nave::setVidas()
+void Nave::setVidas(int vidas)
 {
 
 }

@@ -13,7 +13,7 @@ public:
 	virtual void pintarNave(WINDOW* ventana);
 	virtual int choque(WINDOW* ventana, Asteroide* asteroide);
 	int getCorazones();
-	void setCorazones();
+	void setCorazones(int corazones);
 };
 
 }

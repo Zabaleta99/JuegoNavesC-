@@ -17,6 +17,10 @@ public:
 	virtual WINDOW* mostrarJuego();
 	virtual void tamanyoTerminal();
 	virtual void jugar(Usuario* usuarios, int player);
+	virtual void nuevoAsteroideVertical();
+	virtual void nuevoAsteroideHorizontal();
+	virtual void pintarAsteroideVertical(WINDOW* ventana);
+	virtual void pintarAsteroideHorizontal(WINDOW* ventana);
 	void crearBalas (Bala* balas, NaveClasico* nave, int* num_balas);
 	void mostrarPuntuacion (Usuario* usuarios, int player, float tiempo, int* disparosAcertados);
 	void pintarChoqueAsteroideBala (WINDOW* ventana, Bala* bala);
@@ -30,7 +34,6 @@ public:
 	void liberarMemoriaC(NaveClasico* nave, Asteroide* asteroides, int* num_ast, Bala* balas, int* num_balas, int* disparosAcertados, WINDOW* ventana);
 	void reestablecerValoresC(Asteroide* asteroides, int* num_ast, Bala* balas, int* num_balas, int* disparosAcertados);
 	void movimientosJugadorC(int tecla, NaveClasico* nave, Bala* balas, int* num_balas);
-	void jugar(Usuario* usuarios, int player);
 };
 
 #endif

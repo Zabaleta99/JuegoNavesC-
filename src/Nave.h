@@ -17,9 +17,9 @@ public:
 	int getX();
 	void setX(int x);
 	int getY();
-	void setY();
+	void setY(int y);
 	int getVidas();
-	void setVidas();
+	void setVidas(int vidas);
 };
 
 #endif

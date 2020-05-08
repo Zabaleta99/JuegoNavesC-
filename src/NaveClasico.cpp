@@ -20,7 +20,7 @@ int NaveClasico::getCorazones()
 {
 
 }
-void NaveClasico::setCorazones()
+void NaveClasico::setCorazones(int corazones)
 {
 	
 }

@@ -4,7 +4,7 @@ int VidaExtra::getX()
 {
 
 }
-void VidaExtra::setX()
+void VidaExtra::setX(int x)
 {
 
 }
@@ -12,7 +12,7 @@ int VidaExtra::getY()
 {
 
 }
-void VidaExtra::setY()
+void VidaExtra::setY(int y)
 {
 	
 }

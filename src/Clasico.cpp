@@ -1,34 +1,50 @@
 #include "Clasico.h"
 
-void JuegoSupervivencia::pintarAsteroides(WINDOW* ventana, Asteroide* asteroides, int* num_ast)
+void Clasico::pintarAsteroides(WINDOW* ventana, Asteroide* asteroides, int* num_ast)
 {
 
 }
-void JuegoSupervivencia::subirNivel(Asteroide* asteroides, int* num_ast)
+void Clasico::subirNivel(Asteroide* asteroides, int* num_ast)
 {
 
 }
-void JuegoSupervivencia::mostrarGameOver()
+void Clasico::mostrarGameOver()
 {
 
 }
-int JuegoSupervivencia::menuSalida()
+int Clasico::menuSalida()
 {
 
 }
-WINDOW* JuegoSupervivencia::mostrarInfo()
+WINDOW* Clasico::mostrarInfo()
 {
 
 }
-WINDOW* JuegoSupervivencia::mostrarJuego()
+WINDOW* Clasico::mostrarJuego()
 {
 
 }
-void JuegoSupervivencia::tamanyoTerminal()
+void Clasico::tamanyoTerminal()
 {
 
 }
-void JuegoSupervivencia::jugar(Usuario* usuarios, int player)
+void Clasico::jugar(Usuario* usuarios, int player)
+{
+
+}
+void Clasico::nuevoAsteroideVertical()
+{
+
+}
+void Clasico::nuevoAsteroideHorizontal()
+{
+}
+void Clasico::pintarAsteroideVertical(WINDOW* ventana)
+{
+
+	
+}
+void Clasico::pintarAsteroideHorizontal(WINDOW* ventana)
 {
 
 }
