@@ -16,3 +16,11 @@ int NaveClasico::choque(WINDOW* ventana, Asteroide* asteroide)
 {
 
 }
+int NaveClasico::getCorazones()
+{
+
+}
+void NaveClasico::setCorazones()
+{
+	
+}

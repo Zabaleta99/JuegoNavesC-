@@ -1,14 +1,14 @@
-#ifndef JUEGOSUPERVIVENCIA_H_
-#define JUEGOSUPERVIVENCIA_H_
+#ifndef SUPERVIVENCIA_H_
+#define SUPERVIVENCIA_H_
 #include <curses.h>
 #include "NaveSupervivencia.h"
 #include "Asteroide.h"
 #include "VidaExtra.h"
 
-class JuegoSupervivencia : public Juego
+class Supervivencia : public Juego
 {
 public:
-	JuegoSupervivencia();
+	Supervivencia();
 	void mostrarNivel(int* num_ast);
 	void mostrarVidaExtra();
 	void nuevaVidaExtra(VidaExtra* vidasExtra, int* num_vidasExtra);

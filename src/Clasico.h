@@ -9,6 +9,14 @@ class Clasico : public Juego
 {
 public:
 	Clasico();
+	virtual void pintarAsteroides(WINDOW* ventana, Asteroide* asteroides, int* num_ast);
+	virtual void subirNivel(Asteroide* asteroides, int* num_ast);
+	virtual void mostrarGameOver();
+	virtual int menuSalida();
+	virtual WINDOW* mostrarInfo();
+	virtual WINDOW* mostrarJuego();
+	virtual void tamanyoTerminal();
+	virtual void jugar(Usuario* usuarios, int player);
 	void crearBalas (Bala* balas, NaveClasico* nave, int* num_balas);
 	void mostrarPuntuacion (Usuario* usuarios, int player, float tiempo, int* disparosAcertados);
 	void pintarChoqueAsteroideBala (WINDOW* ventana, Bala* bala);
