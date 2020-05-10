@@ -9,6 +9,9 @@ int Supervivencia::DERECHA = 0;
 int Supervivencia::alturaTerminal = 0;
 int Supervivencia::anchuraTerminal = 0;
 
+int Supervivencia::MAX_AST = 15;
+int Supervivencia::MAX_EXTRA = 5;
+
 void Supervivencia::pintarAsteroides(WINDOW* ventana, Asteroide* asteroides, int* num_ast)
 {
 
@@ -17,9 +20,9 @@ void Supervivencia::subirNivel(Asteroide* asteroides, int* num_ast)
 {
 	if(*num_ast < MAX_AST)
 	{
-		asteroides[*num_ast].x = IZQUIERDA;
-		asteroides[*num_ast].y = (rand()%(BAJO-ALTO+1)) + ALTO;
-		asteroides[*num_ast].tipo = 1;
+		asteroides[*num_ast].setX(IZQUIERDA);
+		asteroides[*num_ast].setY(rand()%(BAJO-ALTO+1) + ALTO);
+		//asteroides[*num_ast].tipo = 1;
 		(*num_ast)++;
 
 		mostrarNivel(num_ast);
@@ -38,7 +41,7 @@ void Supervivencia::mostrarGameOver()
 }
 int Supervivencia::menuSalida()
 {
-	mciSendString("pause song.mp3", NULL, 0, NULL);
+	//mciSendString("pause song.mp3", NULL, 0, NULL);
 	WINDOW* salida = newwin(alturaTerminal/5,DERECHA+6, BAJO+5, IZQUIERDA+3 );
     refresh();
     box(salida,0,0);
@@ -121,10 +124,6 @@ WINDOW* Supervivencia::mostrarJuego()
 void Supervivencia::tamanyoTerminal()
 {
 	
-}
-void Supervivencia::jugar(Usuario* usuarios, int player)
-{
-
 }
 void Supervivencia::nuevoAsteroideVertical(Asteroide* asteroide)
 {
@@ -231,7 +230,17 @@ void Supervivencia::actualizarS(WINDOW* ventana, NaveSupervivencia* nave)
 }
 void Supervivencia::liberarMemoriaS(NaveSupervivencia* nave, Asteroide* asteroides, int* num_ast, VidaExtra* vidasExtra, int* num_vidasExtra, WINDOW* ventana)
 {
-
+	delete nave;
+	delete [] asteroides;
+	delete num_ast;
+	delete num_vidasExtra;
+	//mciSendString("stop song.mp3", NULL, 0, NULL);
+    //mciSendString("close song.mp3", NULL, 0, NULL);
+    wclear(ventana);
+    wrefresh(ventana);
+    delwin(ventana);
+    clear();
+    refresh();
 }
 void Supervivencia::inicializarParametrosS(NaveSupervivencia* nave, Asteroide* asteroides, int* num_ast, VidaExtra* vidasExtra, int* num_vidasExtra)
 {
@@ -279,7 +288,129 @@ void Supervivencia::reestablecerValoresS(Asteroide* asteroides, int* num_ast)
 	}
 	*num_ast = 0;
 }
-void Supervivencia::guardarPuntuacion(Usuario* usuarios, int player, int* num_ast)
+/*void Supervivencia::guardarPuntuacion(Usuario* usuarios, int player, int* num_ast)
 {
 	
+}*/
+
+void Supervivencia::jugar(Usuario* usuarios, int player)
+{
+	initscr();
+	curs_set(0);
+	tamanyoTerminal();
+	WINDOW* info = mostrarInfoS();
+
+	//mciSendString("play song.mp3 repeat", NULL, 0, NULL);
+
+	wclear(info);
+	wrefresh(info);
+	delwin(info);
+
+	move(1,3);
+	printw("Bienvenido: MODO SUPERVIVENCIA");
+	move(2,anchuraTerminal/2); 
+	printw("Vidas: ");
+
+	WINDOW* ventana = mostrarJuegoS();
+
+	NaveSupervivencia* nave = new NaveSupervivencia((DERECHA+6)/2, 3*(BAJO+3)/4, 3);
+	Asteroide* asteroides = new Asteroide [MAX_AST];
+	VidaExtra* vidasExtra = new VidaExtra [MAX_EXTRA];
+	int* num_ast = new int;
+	int* num_vidasExtra = new int;
+
+	asteroides[0].setX((DERECHA+6)/2-3);
+	asteroides[0].setY(ALTO);
+	//asteroides[0].tipo = 0;
+
+	*num_ast = 1;
+	*num_vidasExtra = 1;
+
+	vidasExtra[0].setX((rand()%(DERECHA-IZQUIERDA+1)) + IZQUIERDA);
+	vidasExtra[0].setY((rand()%(BAJO-ALTO+1)) + ALTO);
+    /*NaveSupervivencia* nave = malloc(sizeof(NaveSupervivencia));
+    Asteroide* asteroides = malloc(MAX_AST * sizeof(Asteroide));
+    VidaExtra* vidasExtra = malloc(MAX_EXTRA * sizeof(VidaExtra));
+
+    int* num_ast = malloc(sizeof(int));
+    int* num_vidasExtra = malloc(sizeof(int));*/
+    float segundos = 0;
+    
+    int choque_asteroide = 0;
+    int choque_vidaExtra = 0;
+    int tecla;
+
+    while(1)
+    {
+    	mciSendString("play song.mp3 repeat", NULL, 0, NULL);
+
+    	//inicializarParametrosS(nave, asteroides, num_ast, vidasExtra, num_vidasExtra);
+
+   		mostrarNivel(num_ast);
+
+	    while(1)
+	    {
+	        actualizarS(ventana, nave);
+	        if(segundos > 15)
+	        {
+	        	subirNivelS(asteroides, num_ast);
+	        	if(*num_ast == 5 || *num_ast == 8 || *num_ast == 10 || *num_ast == 13) nuevaVidaExtra(vidasExtra, num_vidasExtra);
+	        	segundos = 0;
+	        }
+
+	        if(choqueVidasExtra(ventana, nave, vidasExtra, num_vidasExtra)) choque_vidaExtra = 1;
+	        pintarVidasExtra(ventana, vidasExtra, num_vidasExtra);
+
+	        for(int i=0; i<*num_ast; i++)
+	        {
+	        	if(choqueAsteroide(ventana, nave, &asteroides[i]))
+	        	{
+	        		choque_asteroide = 1;
+	        		break;	
+	        	}
+	        }
+
+	        pintarAsteroidesS(ventana, asteroides, num_ast);
+
+	        if(!choque_asteroide)
+	        	pintarNaveS(ventana, nave);
+	        else
+				pintarNaveChoqueS(ventana, nave);
+	        						
+	        wrefresh(ventana);
+
+	        if(choque_asteroide) 
+	        {
+	        	Beep(500,800);
+	        	Sleep(100);
+			}
+			if(choque_vidaExtra) mostrarVidaExtra();
+
+	        if(nave->vidas == 0)
+	        {
+	        	guardarPuntuacion(usuarios, player, num_ast);
+	        	mostrarGameOverS();
+	        	choque_asteroide = 0;
+	        	choque_vidaExtra = 0;
+	        	segundos = 0;
+	        	break;
+	        }	
+
+	        tecla = wgetch(ventana);
+	        movimientosJugadorS(tecla, nave);
+
+	        Sleep(35);
+	        segundos +=0.035;
+	        choque_asteroide = 0;
+	        choque_vidaExtra = 0;
+	    }
+	    actualizarS(ventana,nave);
+	    if(menuSalidaS())
+    		break;
+    	wrefresh(ventana);
+    	reestablecerValoresS(asteroides, num_ast);
+    }
+
+    liberarMemoriaS(nave, asteroides, num_ast, vidasExtra, num_vidasExtra, ventana);
+	endwin();
 }

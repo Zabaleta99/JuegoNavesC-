@@ -11,6 +11,6 @@ public:
 	virtual void pintarVidas();
 	virtual void pintarNave(WINDOW* ventana);
 	virtual int choque(WINDOW* ventana, Asteroide* asteroide);
-}
+};
 
 #endif
