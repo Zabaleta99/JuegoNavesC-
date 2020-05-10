@@ -10,7 +10,7 @@ void NaveClasico::pintarVidas()
 }
 void NaveClasico::pintarNave(WINDOW* ventana)
 {
-
+	
 }
 int NaveClasico::choque(WINDOW* ventana, Asteroide* asteroide)
 {

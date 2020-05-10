@@ -1,80 +1,233 @@
 #include "Supervivencia.h"
 
+#include <cstdlib>
+
+int Supervivencia::ALTO = 0;
+int Supervivencia::IZQUIERDA = 0;
+int Supervivencia::BAJO = 0;
+int Supervivencia::DERECHA = 0;
+int Supervivencia::alturaTerminal = 0;
+int Supervivencia::anchuraTerminal = 0;
+
 void Supervivencia::pintarAsteroides(WINDOW* ventana, Asteroide* asteroides, int* num_ast)
 {
 
 }
 void Supervivencia::subirNivel(Asteroide* asteroides, int* num_ast)
 {
+	if(*num_ast < MAX_AST)
+	{
+		asteroides[*num_ast].x = IZQUIERDA;
+		asteroides[*num_ast].y = (rand()%(BAJO-ALTO+1)) + ALTO;
+		asteroides[*num_ast].tipo = 1;
+		(*num_ast)++;
 
+		mostrarNivel(num_ast);
+	}
 }
 void Supervivencia::mostrarGameOver()
 {
-
+	WINDOW* gameOver = newwin(3, 11,alturaTerminal/2-1.5,anchuraTerminal/2-5.5);
+	refresh();
+	box(gameOver,0,0);
+	wmove(gameOver,1, 1);
+	wprintw(gameOver, "GAME OVER");
+	wrefresh(gameOver);
+	wclear(gameOver);
+	delwin(gameOver);
 }
 int Supervivencia::menuSalida()
 {
+	mciSendString("pause song.mp3", NULL, 0, NULL);
+	WINDOW* salida = newwin(alturaTerminal/5,DERECHA+6, BAJO+5, IZQUIERDA+3 );
+    refresh();
+    box(salida,0,0);
+    keypad(salida, TRUE);
 
+    const char *opciones[2] = {"Jugar otra vez", "Menu"};
+    /*char** opciones = malloc(2 * sizeof(char*));
+    for(int i=0; i<2; i++)
+    {
+    	opciones[i] = malloc(MAX_LENGHT * sizeof(char));
+    }
+    opciones[0] = "Jugar otra vez";
+    opciones[1] = "Menu";*/
+
+    int eleccion;
+    int seleccion = 0;
+
+    while(1)
+    {
+    	for(int i=0; i<2; i++)
+    	{
+    		if(i==seleccion)
+    			wattron(salida, A_REVERSE);
+    		mvwprintw(salida, i+1, 1, "%s", opciones[i]);
+    		wattroff(salida, A_REVERSE);
+    	}
+    	wrefresh(salida);
+
+    	eleccion = wgetch(salida);
+
+    	switch(eleccion)
+    	{
+    		case KEY_UP:
+    			seleccion--;
+    			if(seleccion == -1)
+    				seleccion = 0;
+    			break;
+    		case KEY_DOWN:
+    			seleccion++;
+    			if(seleccion == 2)
+    				seleccion = 1;
+    			break;
+    		default:
+    			break;
+    	}
+    	if(eleccion == 10)
+    		break;
+    }
+    delete [] opciones;
+	wclear(salida);
+	wrefresh(salida);
+	delwin(salida);
+	return seleccion;
 }
 WINDOW* Supervivencia::mostrarInfo()
 {
-
+	WINDOW* info = newwin(alturaTerminal/3.7,anchuraTerminal/1.7,alturaTerminal/2-alturaTerminal/7.4,anchuraTerminal/2 - anchuraTerminal/3.4);
+	refresh();
+	box(info,0,0);
+	mvwprintw(info,1,1,"El juego consiste en que los asteroides (O) no choquen con la nave.");
+	mvwprintw(info,2,1,"Para mover la nave usa las fleclas");;
+	mvwprintw(info,3,1,"Hay 15 niveles distintos");
+	mvwprintw(info,4,1,"Existen vidas Extras (X)");
+	mvwprintw(info,6,1,"El juego esta a punto de empezar...");
+	wrefresh(info);
+	return info;
 }
 WINDOW* Supervivencia::mostrarJuego()
 {
-
+	WINDOW* ventana = newwin(BAJO+3, DERECHA+6, ALTO, IZQUIERDA+3);
+    refresh();
+    keypad(ventana, TRUE);
+    nodelay(ventana, TRUE);
+    noecho();
+    start_color();
+    init_pair(1, COLOR_BLACK, COLOR_GREEN);
+    wbkgd(ventana, COLOR_PAIR(1));
+    return ventana;
 }
 void Supervivencia::tamanyoTerminal()
 {
-
+	
 }
 void Supervivencia::jugar(Usuario* usuarios, int player)
 {
 
 }
-void Supervivencia::nuevoAsteroideVertical()
+void Supervivencia::nuevoAsteroideVertical(Asteroide* asteroide)
 {
-
+	asteroide = new Asteroide((rand()%(DERECHA-IZQUIERDA+1)) + IZQUIERDA, ALTO-3);
 }
-void Supervivencia::nuevoAsteroideHorizontal()
+void Supervivencia::nuevoAsteroideHorizontal(Asteroide* asteroide)
 {
-
+	asteroide = new Asteroide((rand()%(BAJO-ALTO+1)), ALTO);
 }
-void Supervivencia::pintarAsteroideVertical(WINDOW* ventana)
+void Supervivencia::pintarAsteroideVertical(WINDOW* ventana, Asteroide* asteroide)
 {
+	wmove(ventana, asteroide->getY(), asteroide->getX()); wprintw(ventana, "O");
 
+	asteroide->setY(asteroide->getY()+1);
+
+	if(asteroide->getY() == BAJO+2)
+	{
+		nuevoAsteroideVertical(asteroide);
+	}
 }
-void Supervivencia::pintarAsteroideHorizontal(WINDOW* ventana)
+void Supervivencia::pintarAsteroideHorizontal(WINDOW* ventana, Asteroide* asteroide)
 {
+	wmove(ventana, asteroide->getY(), asteroide->getX()); wprintw(ventana, "O");
 
+	asteroide->setX(asteroide->getX()+1);
+
+	if(asteroide->getX() == DERECHA+2)
+	{
+		nuevoAsteroideHorizontal(asteroide);
+	}
 }
 Supervivencia::Supervivencia()
 {
-
+	getmaxyx(stdscr, alturaTerminal, anchuraTerminal);
+	BAJO = (alturaTerminal * 0.5)+3;
+	ALTO = alturaTerminal*0.13;
+	IZQUIERDA = (anchuraTerminal*0.074)-3;
+	DERECHA = (anchuraTerminal * 0.85)-6;
 }
 void Supervivencia::mostrarNivel(int* num_ast)
 {
-
+	WINDOW* nivel = newwin(3, 12,alturaTerminal/2-1.5,anchuraTerminal/2-5.5);
+	refresh();
+	box(nivel,0,0);
+	wmove(nivel, 1,1);
+	wprintw(nivel, "NIVEL: %d", *num_ast);
+	wrefresh(nivel);
+	sleep(3);
+	wclear(nivel);
+	wrefresh(nivel);
+	delwin(nivel);
+	refresh();
 }
 void Supervivencia::mostrarVidaExtra()
 {
-
+	int alturaVentanaS = BAJO+3;
+	int anchuraVentanaS = DERECHA+6;
+	WINDOW* vidaExtra = newwin(3, 15,alturaTerminal/2-1.5,anchuraTerminal/2-7.5);
+	refresh();
+	box(vidaExtra,0,0);
+	mvwprintw(vidaExtra,1,1, "VIDA EXTRA +1");
+	wrefresh(vidaExtra);
+	sleep(1);
+	wclear(vidaExtra);
+	wrefresh(vidaExtra);
+	delwin(vidaExtra);
 }
 void Supervivencia::nuevaVidaExtra(VidaExtra* vidasExtra, int* num_vidasExtra)
 {
-
+	if(*num_vidasExtra < MAX_EXTRA)
+	{
+		vidasExtra[*num_vidasExtra].setX((rand()%(DERECHA-IZQUIERDA+1)) + IZQUIERDA);
+		vidasExtra[*num_vidasExtra].setY((rand()%(BAJO-ALTO+1)) + ALTO);
+		(*num_vidasExtra)++;
+	}
 }
 void Supervivencia::pintarVidasExtra(WINDOW* ventana, VidaExtra* vidasExtra, int* num_vidasExtra)
 {
-
+	for(int i=0; i<*num_vidasExtra; i++)
+	{
+		mvwprintw(ventana, vidasExtra[i].getY(), vidasExtra[i].getX(), "X");
+	}
 }
 int Supervivencia::choqueVidasExtra(WINDOW* ventana, NaveSupervivencia* nave, VidaExtra* vidasExtra, int* num_vidasExtra)
 {
-
+	for(int i=0; i<*num_vidasExtra; i++)
+	{
+		if((vidasExtra[i].getX() >= nave->getX()) && (vidasExtra[i].getX() <= nave->getX()+3) && (vidasExtra[i].getY() >= nave->getY()-1) && (vidasExtra[i].getY() <= nave->getY()))
+		{
+			nave->setVidas(nave->getVidas()+1);
+			vidasExtra[i].setX(-1);
+			vidasExtra[i].setY(-1);
+			return 1;
+		}
+	}
+	return 0;
 }
+
 void Supervivencia::actualizarS(WINDOW* ventana, NaveSupervivencia* nave)
 {
-
+	werase(ventana);
+	nave->pintarVidas();
+   	box(ventana, 0,0);
 }
 void Supervivencia::liberarMemoriaS(NaveSupervivencia* nave, Asteroide* asteroides, int* num_ast, VidaExtra* vidasExtra, int* num_vidasExtra, WINDOW* ventana)
 {
@@ -86,11 +239,45 @@ void Supervivencia::inicializarParametrosS(NaveSupervivencia* nave, Asteroide* a
 }
 void Supervivencia::movimientosJugadorS(int tecla, NaveSupervivencia* nave)
 {
+	switch(tecla)
+    {
+        case KEY_UP:
 
+        	if(nave->getY() > ALTO)
+        		nave->setY(nave->getY()-2);
+            break;
+
+        case KEY_DOWN:
+
+        	if(nave->getY() < BAJO)
+            	nave->setY(nave->getY()+2);
+            break;
+
+        case KEY_RIGHT:
+
+        	if(nave->getX() < DERECHA)
+            	nave->setX(nave->getX()+2);
+            break;
+
+        case KEY_LEFT:
+
+        	if(nave->getX() > IZQUIERDA)
+            	nave->setX(nave->getX()-2);
+            break;
+
+        default:
+        	break;
+    }
 }
 void Supervivencia::reestablecerValoresS(Asteroide* asteroides, int* num_ast)
 {
-
+	for(int i=1; i<*num_ast; i++)
+	{
+		asteroides[i].setX(0);
+		asteroides[i].setY(0);
+		//asteroides[i].tipo = 0;  ??? Ahora tenemos la variable tipo en Asteroide?
+	}
+	*num_ast = 0;
 }
 void Supervivencia::guardarPuntuacion(Usuario* usuarios, int player, int* num_ast)
 {

@@ -1,21 +1,5 @@
 #include "Asteroide.h"
 
-void Asteroide::nuevoAsteroideVertical()
-{
-
-}
-void Asteroide::nuevoAsteroideHorizontal()
-{
-
-}
-void Asteroide::pintarAsteroideVertical(WINDOW* ventana)
-{
-
-}
-void Asteroide::pintarAsteroideHorizontal(WINDOW* ventana)
-{
-
-}
 int Asteroide::getX()
 {
 	return x;
