@@ -21,16 +21,16 @@
 #include <stdlib.h>
 using namespace std;
 
-int Supervivencia::ALTO = alturaTerminal*0.13;
-int Supervivencia::IZQUIERDA = (anchuraTerminal*0.074)-3;
-int Supervivencia::BAJO = (alturaTerminal * 0.5)+3;
-int Supervivencia::DERECHA = (anchuraTerminal * 0.85)-6;
+int Supervivencia::ALTO = 0;
+int Supervivencia::IZQUIERDA = 0;
+int Supervivencia::BAJO = 0;
+int Supervivencia::DERECHA = 0;
 int Supervivencia::alturaTerminal = 0;
 int Supervivencia::anchuraTerminal = 0;
 
-int Supervivencia::MAX_AST = 15;
-int Supervivencia::MAX_EXTRA = 5;
-int Supervivencia::MAX_LENGHT = 20;
+int Supervivencia::MAX_AST = 0;
+int Supervivencia::MAX_EXTRA = 0;
+int Supervivencia::MAX_LENGHT = 0;
 
 void Supervivencia::pintarAsteroides(WINDOW* ventana, Asteroide* asteroides, int* num_ast)
 {
@@ -186,7 +186,17 @@ void Supervivencia::pintarAsteroideHorizontal(WINDOW* ventana, Asteroide* astero
 }
 Supervivencia::Supervivencia()
 {
+	initscr();
 	getmaxyx(stdscr, alturaTerminal, anchuraTerminal);
+
+	ALTO = alturaTerminal*0.13;
+	IZQUIERDA = (anchuraTerminal*0.074)-3;
+	BAJO = (alturaTerminal * 0.5)+3;
+	DERECHA = (anchuraTerminal * 0.85)-6;
+
+	MAX_AST = 15;
+	MAX_EXTRA = 5;
+	MAX_LENGHT = 20;
 }
 void Supervivencia::mostrarNivel(int* num_ast)
 {
@@ -194,14 +204,9 @@ void Supervivencia::mostrarNivel(int* num_ast)
 	refresh();
 	box(nivel,0,0);
 	wmove(nivel, 1,1);
-	cout << "q";
 	wprintw(nivel, "NIVEL: %d", *num_ast);
-	sleep(3000);
-	cout << "t";
 	wrefresh(nivel);
-	cout << "1";
 	sleep(3000);
-	cout << "2";
 	wclear(nivel);
 	wrefresh(nivel);
 	delwin(nivel);
@@ -368,9 +373,8 @@ void Supervivencia::jugar()
     	//mciSendString("play song.mp3 repeat", NULL, 0, NULL);
 
     	inicializarParametrosS(asteroides, num_ast, vidasExtra, num_vidasExtra);
-    	cout << "0";
    		mostrarNivel(num_ast);
-   		cout << "yeah";
+   		
 	    while(1)
 	    {
 	        actualizarS(ventana, nave);
@@ -404,8 +408,7 @@ void Supervivencia::jugar()
 
 	        if(choque_asteroide) 
 	        {
-	        	//Beep(500,800);
-	        	Sleep(100);
+	        	sleep(100);
 			}
 			if(choque_vidaExtra) mostrarVidaExtra();
 
@@ -422,7 +425,7 @@ void Supervivencia::jugar()
 	        tecla = wgetch(ventana);
 	        movimientosJugadorS(tecla, nave);
 
-	        Sleep(35);
+	        sleep(35);
 	        segundos +=0.035;
 	        choque_asteroide = 0;
 	        choque_vidaExtra = 0;
