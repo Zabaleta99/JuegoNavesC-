@@ -254,7 +254,20 @@ void Supervivencia::liberarMemoriaS(NaveSupervivencia* nave, Asteroide* asteroid
 }
 void Supervivencia::inicializarParametrosS(NaveSupervivencia* nave, Asteroide* asteroides, int* num_ast, VidaExtra* vidasExtra, int* num_vidasExtra)
 {
+	nave->setX((DERECHA+6)/2);
+	nave->setY(3*(BAJO+3)/4);
+	nave->setVidas(3);
 
+	asteroides[0].setX((DERECHA+6)/2-3);
+	asteroides[0].setY(ALTO);
+	asteroides[0].setTipo(0);
+
+	*num_ast = 1;
+
+	vidasExtra[0].setX((rand()%(DERECHA-IZQUIERDA+1)) + IZQUIERDA);
+	vidasExtra[0].setY((rand()%(BAJO-ALTO+1)) + ALTO);
+
+	*num_vidasExtra = 1;
 }
 void Supervivencia::movimientosJugadorS(int tecla, NaveSupervivencia* nave)
 {
