@@ -6,12 +6,16 @@ class Asteroide
 {
 	int x;
 	int y;
+	int tipo;
 public:
+	Asteroide(){}
 	Asteroide(int x, int y): x(x), y(y){}
 	int getX();
 	void setX(int x);
 	int getY();
 	void setY(int y);
+	int getTipo();
+	void setTipo(int tipo);
 };
 
 #endif

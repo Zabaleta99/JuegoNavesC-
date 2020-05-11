@@ -6,6 +6,7 @@ class VidaExtra
 	int x;
 	int y;
 public: 
+	VidaExtra() {}
 	VidaExtra(int x, int y): x(x), y(y){}
 	int getX();
 	void setX(int x);

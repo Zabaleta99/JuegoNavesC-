@@ -4,7 +4,7 @@
 #include "NaveSupervivencia.h"
 #include "Asteroide.h"
 #include "VidaExtra.h"
-
+#include "Juego.h"
 class Supervivencia : public Juego
 {
 	private:
@@ -26,7 +26,7 @@ class Supervivencia : public Juego
 		virtual WINDOW* mostrarInfo();
 		virtual WINDOW* mostrarJuego();
 		virtual void tamanyoTerminal();
-		//virtual void jugar(Usuario* usuarios, int player);
+		/*virtual*/  void jugar();
 		virtual void nuevoAsteroideVertical(Asteroide* asteroide);
 		virtual void nuevoAsteroideHorizontal(Asteroide* asteroide);
 		virtual void pintarAsteroideVertical(WINDOW* ventana, Asteroide* asteroide);

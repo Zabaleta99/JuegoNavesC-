@@ -1,6 +1,7 @@
 #ifndef NAVE_H_
 #define NAVE_H_
 #include <curses.h>
+
 #include "Asteroide.h"
 
 class Nave
@@ -11,7 +12,7 @@ class Nave
 public:
 	Nave(int x, int y, int vidas): x(x), y(y), vidas(vidas){}
 	virtual void pintarNaveChoque(WINDOW* ventana) = 0;
-	virtual void pintarVidas() = 0;
+	virtual void pintarVidas(int anchuraTerminal) = 0;
 	virtual void pintarNave(WINDOW* ventana) = 0;
 	virtual int choque(WINDOW* ventana, Asteroide* asteroide) = 0;
 	int getX();

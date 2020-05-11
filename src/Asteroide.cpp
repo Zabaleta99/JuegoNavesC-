@@ -16,3 +16,12 @@ void Asteroide::setY(int y)
 {
 	this->y=y;
 }
+int Asteroide::getTipo()
+{
+	return tipo;
+}
+void Asteroide::setTipo(int tipo)
+{
+	this->tipo = tipo;
+}
+
