@@ -2,7 +2,7 @@
 
 int Nave::getX()
 {
-	retrun x;
+	return this->x;
 }
 void Nave::setX(int x)
 {

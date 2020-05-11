@@ -1,20 +1,21 @@
 #include "Supervivencia.h"
-
+#include "NaveSupervivencia.h"
 #include <cstdlib>
 
 #include <windows.h>  //hay q cambiarlas luego
 #include <unistd.h>
 #include <stdlib.h>
 
-int Supervivencia::ALTO = 0;
-int Supervivencia::IZQUIERDA = 0;
-int Supervivencia::BAJO = 0;
-int Supervivencia::DERECHA = 0;
+int Supervivencia::ALTO = alturaTerminal*0.13;
+int Supervivencia::IZQUIERDA = (anchuraTerminal*0.074)-3;
+int Supervivencia::BAJO = (alturaTerminal * 0.5)+3;
+int Supervivencia::DERECHA = (anchuraTerminal * 0.85)-6;
 int Supervivencia::alturaTerminal = 0;
 int Supervivencia::anchuraTerminal = 0;
 
 int Supervivencia::MAX_AST = 15;
 int Supervivencia::MAX_EXTRA = 5;
+int Supervivencia::MAX_LENGHT = 20;
 
 void Supervivencia::pintarAsteroides(WINDOW* ventana, Asteroide* asteroides, int* num_ast)
 {
@@ -57,14 +58,13 @@ int Supervivencia::menuSalida()
     box(salida,0,0);
     keypad(salida, TRUE);
 
-    const char *opciones[2] = {"Jugar otra vez", "Menu"};
-    /*char** opciones = malloc(2 * sizeof(char*));
+    const char** opciones = new const char*[2];
     for(int i=0; i<2; i++)
     {
-    	opciones[i] = malloc(MAX_LENGHT * sizeof(char));
+    	opciones[i] = new char[MAX_LENGHT];
     }
     opciones[0] = "Jugar otra vez";
-    opciones[1] = "Menu";*/
+    opciones[1] = "Menu";
 
     int eleccion;
     int seleccion = 0;
@@ -100,7 +100,11 @@ int Supervivencia::menuSalida()
     	if(eleccion == 10)
     		break;
     }
-    delete [] opciones;
+    for(int i=0; i<2; i++)
+    {
+    	delete[] opciones[i];
+    }
+    delete[] opciones;
 	wclear(salida);
 	wrefresh(salida);
 	delwin(salida);
@@ -168,10 +172,6 @@ void Supervivencia::pintarAsteroideHorizontal(WINDOW* ventana, Asteroide* astero
 Supervivencia::Supervivencia()
 {
 	getmaxyx(stdscr, alturaTerminal, anchuraTerminal);
-	BAJO = (alturaTerminal * 0.5)+3;
-	ALTO = alturaTerminal*0.13;
-	IZQUIERDA = (anchuraTerminal*0.074)-3;
-	DERECHA = (anchuraTerminal * 0.85)-6;
 }
 void Supervivencia::mostrarNivel(int* num_ast)
 {
@@ -338,12 +338,12 @@ void Supervivencia::jugar()
 
 	vidasExtra[0].setX((rand()%(DERECHA-IZQUIERDA+1)) + IZQUIERDA);
 	vidasExtra[0].setY((rand()%(BAJO-ALTO+1)) + ALTO);
-    /*NaveSupervivencia* nave = malloc(sizeof(NaveSupervivencia));
+    NaveSupervivencia* nave = malloc(sizeof(NaveSupervivencia));
     Asteroide* asteroides = malloc(MAX_AST * sizeof(Asteroide));
     VidaExtra* vidasExtra = malloc(MAX_EXTRA * sizeof(VidaExtra));
 
     int* num_ast = malloc(sizeof(int));
-    int* num_vidasExtra = malloc(sizeof(int));*/
+    int* num_vidasExtra = malloc(sizeof(int));
     float segundos = 0;
     
     int choque_asteroide = 0;
@@ -423,11 +423,4 @@ void Supervivencia::jugar()
 
     liberarMemoriaS(nave, asteroides, num_ast, vidasExtra, num_vidasExtra, ventana);
 	endwin();
-}
-
-int main (void)
-{
-	Supervivencia* super = new Supervivencia();
-	super->jugar();
-	return 0;
 }

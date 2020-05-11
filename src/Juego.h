@@ -16,8 +16,6 @@ public:
 	virtual void nuevoAsteroideHorizontal(Asteroide* asteroide) = 0;
 	virtual void pintarAsteroideVertical(WINDOW* ventana, Asteroide* asteroide) = 0;
 	virtual void pintarAsteroideHorizontal(WINDOW* ventana, Asteroide* asteroide) = 0;
-
-
 };
 
 #endif

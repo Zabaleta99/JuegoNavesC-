@@ -5,6 +5,7 @@
 #include "Asteroide.h"
 #include "VidaExtra.h"
 #include "Juego.h"
+
 class Supervivencia : public Juego
 {
 	private:
@@ -17,6 +18,7 @@ class Supervivencia : public Juego
 		static int anchuraTerminal;
 		static int MAX_AST;
 		static int MAX_EXTRA;
+		static int MAX_LENGHT;
 	public:
 		Supervivencia();
 		virtual void pintarAsteroides(WINDOW* ventana, Asteroide* asteroides, int* num_ast);
