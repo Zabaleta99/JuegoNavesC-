@@ -28,9 +28,9 @@ int Supervivencia::DERECHA = 0;
 int Supervivencia::alturaTerminal = 0;
 int Supervivencia::anchuraTerminal = 0;
 
-int Supervivencia::MAX_AST = 0;
-int Supervivencia::MAX_EXTRA = 0;
-int Supervivencia::MAX_LENGHT = 0;
+int Supervivencia::MAX_AST = 15;
+int Supervivencia::MAX_EXTRA = 5;
+int Supervivencia::MAX_LENGHT = 20;
 
 void Supervivencia::pintarAsteroides(WINDOW* ventana, Asteroide* asteroides, int* num_ast)
 {
@@ -193,10 +193,6 @@ Supervivencia::Supervivencia()
 	IZQUIERDA = (anchuraTerminal*0.074)-3;
 	BAJO = (alturaTerminal * 0.5)+3;
 	DERECHA = (anchuraTerminal * 0.85)-6;
-
-	MAX_AST = 15;
-	MAX_EXTRA = 5;
-	MAX_LENGHT = 20;
 }
 void Supervivencia::mostrarNivel(int* num_ast)
 {
