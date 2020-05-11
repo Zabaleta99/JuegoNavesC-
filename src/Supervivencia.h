@@ -40,7 +40,7 @@ class Supervivencia : public Juego
 		int choqueVidasExtra(WINDOW* ventana, NaveSupervivencia* nave, VidaExtra* vidasExtra, int* num_vidasExtra);
 		void actualizarS(WINDOW* ventana, NaveSupervivencia* nave);
 		void liberarMemoriaS(NaveSupervivencia* nave, Asteroide* asteroides, int* num_ast, VidaExtra* vidasExtra, int* num_vidasExtra, WINDOW* ventana);
-		void inicializarParametrosS(NaveSupervivencia* nave, Asteroide* asteroides, int* num_ast, VidaExtra* vidasExtra, int* num_vidasExtra);
+		void inicializarParametrosS(Asteroide* asteroides, int* num_ast, VidaExtra* vidasExtra, int* num_vidasExtra);
 		void movimientosJugadorS(int tecla, NaveSupervivencia* nave);
 		void reestablecerValoresS(Asteroide* asteroides, int* num_ast);
 		//void guardarPuntuacion(Usuario* usuarios, int player, int* num_ast);

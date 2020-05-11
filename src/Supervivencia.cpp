@@ -1,10 +1,25 @@
+#ifdef _WIN32
+	#include <windows.h>
+
+	void sleep(unsigned milliseconds)
+	{
+		Sleep(milliseconds);
+	}
+#else
+	#include <unistd.h>
+
+	void sleep(unsigned int milliseconds)
+	{
+		usleep(milliseconds * 1000);
+	}
+#endif
+
 #include "Supervivencia.h"
 #include "NaveSupervivencia.h"
 #include <cstdlib>
-
-#include <windows.h>  //hay q cambiarlas luego
-#include <unistd.h>
+#include <iostream> 
 #include <stdlib.h>
+using namespace std;
 
 int Supervivencia::ALTO = alturaTerminal*0.13;
 int Supervivencia::IZQUIERDA = (anchuraTerminal*0.074)-3;
@@ -179,9 +194,14 @@ void Supervivencia::mostrarNivel(int* num_ast)
 	refresh();
 	box(nivel,0,0);
 	wmove(nivel, 1,1);
+	cout << "q";
 	wprintw(nivel, "NIVEL: %d", *num_ast);
+	sleep(3000);
+	cout << "t";
 	wrefresh(nivel);
-	sleep(3);
+	cout << "1";
+	sleep(3000);
+	cout << "2";
 	wclear(nivel);
 	wrefresh(nivel);
 	delwin(nivel);
@@ -196,7 +216,7 @@ void Supervivencia::mostrarVidaExtra()
 	box(vidaExtra,0,0);
 	mvwprintw(vidaExtra,1,1, "VIDA EXTRA +1");
 	wrefresh(vidaExtra);
-	sleep(1);
+	Sleep(1);
 	wclear(vidaExtra);
 	wrefresh(vidaExtra);
 	delwin(vidaExtra);
@@ -252,12 +272,8 @@ void Supervivencia::liberarMemoriaS(NaveSupervivencia* nave, Asteroide* asteroid
     clear();
     refresh();
 }
-void Supervivencia::inicializarParametrosS(NaveSupervivencia* nave, Asteroide* asteroides, int* num_ast, VidaExtra* vidasExtra, int* num_vidasExtra)
+void Supervivencia::inicializarParametrosS(Asteroide* asteroides, int* num_ast, VidaExtra* vidasExtra, int* num_vidasExtra)
 {
-	nave->setX((DERECHA+6)/2);
-	nave->setY(3*(BAJO+3)/4);
-	nave->setVidas(3);
-
 	asteroides[0].setX((DERECHA+6)/2-3);
 	asteroides[0].setY(ALTO);
 	asteroides[0].setTipo(0);
@@ -323,7 +339,7 @@ void Supervivencia::jugar()
 	tamanyoTerminal();
 	WINDOW* info = mostrarInfo();
 
-	//mciSendString("play song.mp3 repeat", NULL, 0, NULL);
+	sleep(5000);
 
 	wclear(info);
 	wrefresh(info);
@@ -342,23 +358,7 @@ void Supervivencia::jugar()
 	int* num_ast = new int;
 	int* num_vidasExtra = new int;
 
-	asteroides[0].setX((DERECHA+6)/2-3);
-	asteroides[0].setY(ALTO);
-	asteroides[0].setTipo(0);
-
-	*num_ast = 1;
-	*num_vidasExtra = 1;
-
-	vidasExtra[0].setX((rand()%(DERECHA-IZQUIERDA+1)) + IZQUIERDA);
-	vidasExtra[0].setY((rand()%(BAJO-ALTO+1)) + ALTO);
-    NaveSupervivencia* nave = malloc(sizeof(NaveSupervivencia));
-    Asteroide* asteroides = malloc(MAX_AST * sizeof(Asteroide));
-    VidaExtra* vidasExtra = malloc(MAX_EXTRA * sizeof(VidaExtra));
-
-    int* num_ast = malloc(sizeof(int));
-    int* num_vidasExtra = malloc(sizeof(int));
     float segundos = 0;
-    
     int choque_asteroide = 0;
     int choque_vidaExtra = 0;
     int tecla;
@@ -367,10 +367,10 @@ void Supervivencia::jugar()
     {
     	//mciSendString("play song.mp3 repeat", NULL, 0, NULL);
 
-    	//inicializarParametrosS(nave, asteroides, num_ast, vidasExtra, num_vidasExtra);
-
+    	inicializarParametrosS(asteroides, num_ast, vidasExtra, num_vidasExtra);
+    	cout << "0";
    		mostrarNivel(num_ast);
-
+   		cout << "yeah";
 	    while(1)
 	    {
 	        actualizarS(ventana, nave);
