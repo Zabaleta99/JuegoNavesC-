@@ -14,7 +14,6 @@ public:
 	virtual void pintarNaveChoque(WINDOW* ventana) = 0;
 	virtual void pintarVidas(int anchuraTerminal) = 0;
 	virtual void pintarNave(WINDOW* ventana) = 0;
-	virtual int choque(WINDOW* ventana, Asteroide* asteroide) = 0;
 	int getX();
 	void setX(int x);
 	int getY();

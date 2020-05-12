@@ -8,8 +8,8 @@ class Asteroide
 	int y;
 	int tipo;
 public:
-	Asteroide(){}
-	Asteroide(int x, int y): x(x), y(y){}
+	Asteroide(): x(-1), y(-1), tipo(-1){}
+	Asteroide(int x, int y, int tipo): x(x), y(y), tipo(tipo){}
 	int getX();
 	void setX(int x);
 	int getY();

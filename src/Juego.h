@@ -1,6 +1,7 @@
 #ifndef JUEGO_H_
 #define JUEGO_H_
 #include "Asteroide.h"
+#include "Nave.h"
 class Juego
 {
 public:
@@ -16,6 +17,7 @@ public:
 	virtual void nuevoAsteroideHorizontal(Asteroide* asteroide) = 0;
 	virtual void pintarAsteroideVertical(WINDOW* ventana, Asteroide* asteroide) = 0;
 	virtual void pintarAsteroideHorizontal(WINDOW* ventana, Asteroide* asteroide) = 0;
+	virtual int choque(WINDOW* ventana, Nave* nave, Asteroide* asteroide) = 0;
 };
 
 #endif

@@ -15,7 +15,3 @@ void NaveSupervivencia::pintarNave(WINDOW* ventana)
 	wmove(ventana, this->getY(), this->getX()); wprintw(ventana, "****");
 	wmove(ventana, this->getY()-1, this->getX()+1); wprintw(ventana, "**");
 }
-int NaveSupervivencia::choque(WINDOW* ventana, Asteroide* asteroide) //?
-{
-	
-}
