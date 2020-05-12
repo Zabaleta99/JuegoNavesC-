@@ -1,7 +1,6 @@
 #ifndef NAVE_H_
 #define NAVE_H_
 #include <curses.h>
-
 #include "Asteroide.h"
 
 class Nave

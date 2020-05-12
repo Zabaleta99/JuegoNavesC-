@@ -15,17 +15,6 @@
 #endif
 
 #include "Supervivencia.h"
-#include <cstdlib>
-#include <iostream> 
-#include <stdlib.h>
-using namespace std;
-
-int Supervivencia::ALTO = 0;
-int Supervivencia::IZQUIERDA = 0;
-int Supervivencia::BAJO = 0;
-int Supervivencia::DERECHA = 0;
-int Supervivencia::alturaTerminal = 0;
-int Supervivencia::anchuraTerminal = 0;
 
 int Supervivencia::MAX_AST = 15;
 int Supervivencia::MAX_EXTRA = 5;
@@ -46,8 +35,8 @@ void Supervivencia::subirNivel(Asteroide* asteroides, int* num_ast)
 {
 	if(*num_ast < MAX_AST)
 	{
-		asteroides[*num_ast].setX(IZQUIERDA);
-		asteroides[*num_ast].setY(rand()%(BAJO-ALTO+1) + ALTO);
+		asteroides[*num_ast].setX(this->getIzquierda());
+		asteroides[*num_ast].setY(rand()%(this->getBajo()-this->getAlto()+1) + this->getAlto());
 		asteroides[*num_ast].setTipo(1);
 		(*num_ast)++;
 
@@ -57,7 +46,7 @@ void Supervivencia::subirNivel(Asteroide* asteroides, int* num_ast)
 
 void Supervivencia::mostrarGameOver()
 {
-	WINDOW* gameOver = newwin(3, 11,alturaTerminal/2-1.5,anchuraTerminal/2-5.5);
+	WINDOW* gameOver = newwin(3, 11,this->getAlturaTerminal()/2-1.5,this->getAnchuraTerminal()/2-5.5);
 	refresh();
 	box(gameOver,0,0);
 	wmove(gameOver,1, 1);
@@ -69,7 +58,7 @@ void Supervivencia::mostrarGameOver()
 
 int Supervivencia::menuSalida()
 {
-	WINDOW* salida = newwin(alturaTerminal/5,DERECHA+6, BAJO+5, IZQUIERDA+3 );
+	WINDOW* salida = newwin(this->getAlturaTerminal()/5,this->getDerecha()+6, this->getBajo()+5, this->getIzquierda()+3 );
     refresh();
     box(salida,0,0);
     keypad(salida, TRUE);
@@ -129,7 +118,7 @@ int Supervivencia::menuSalida()
 
 WINDOW* Supervivencia::mostrarInfo()
 {
-	WINDOW* info = newwin(alturaTerminal/3.7,anchuraTerminal/1.7,alturaTerminal/2-alturaTerminal/7.4,anchuraTerminal/2 - anchuraTerminal/3.4);
+	WINDOW* info = newwin(this->getAlturaTerminal()/3.7,this->getAnchuraTerminal()/1.7,this->getAlturaTerminal()/2-this->getAlturaTerminal()/7.4,this->getAnchuraTerminal()/2 - this->getAnchuraTerminal()/3.4);
 	refresh();
 	box(info,0,0);
 	mvwprintw(info,1,1,"El juego consiste en que los asteroides (O) no choquen con la nave.");
@@ -143,7 +132,7 @@ WINDOW* Supervivencia::mostrarInfo()
 
 WINDOW* Supervivencia::mostrarJuego()
 {
-	WINDOW* ventana = newwin(BAJO+3, DERECHA+6, ALTO, IZQUIERDA+3);
+	WINDOW* ventana = newwin(this->getBajo()+3, this->getDerecha()+6, this->getAlto(), this->getIzquierda()+3);
     refresh();
     keypad(ventana, TRUE);
     nodelay(ventana, TRUE);
@@ -161,14 +150,14 @@ void Supervivencia::tamanyoTerminal()
 
 void Supervivencia::nuevoAsteroideVertical(Asteroide* asteroide)
 {
-	asteroide->setX((rand()%(DERECHA-IZQUIERDA+1)) + IZQUIERDA);
-	asteroide->setY(ALTO-3);
+	asteroide->setX((rand()%(this->getDerecha()-this->getIzquierda()+1)) + this->getIzquierda());
+	asteroide->setY(this->getAlto()-3);
 }
 
 void Supervivencia::nuevoAsteroideHorizontal(Asteroide* asteroide)
 {
-	asteroide->setX(IZQUIERDA-2);
-	asteroide->setY((rand()%(BAJO-ALTO+1)) + ALTO);
+	asteroide->setX(this->getIzquierda()-2);
+	asteroide->setY((rand()%(this->getBajo()-this->getAlto()+1)) + this->getAlto());
 }
 
 int Supervivencia::choque(WINDOW* ventana, Nave* nave, Asteroide* asteroide)
@@ -195,7 +184,7 @@ void Supervivencia::pintarAsteroideVertical(WINDOW* ventana, Asteroide* asteroid
 
 	asteroide->setY(asteroide->getY()+1);
 
-	if(asteroide->getY() == BAJO+2)
+	if(asteroide->getY() == this->getBajo()+2)
 	{
 		nuevoAsteroideVertical(asteroide);
 	}
@@ -206,24 +195,21 @@ void Supervivencia::pintarAsteroideHorizontal(WINDOW* ventana, Asteroide* astero
 
 	asteroide->setX(asteroide->getX()+1);
 
-	if(asteroide->getX() == DERECHA+2)
+	if(asteroide->getX() == this->getDerecha()+2)
 	{
 		nuevoAsteroideHorizontal(asteroide);
 	}
 }
-Supervivencia::Supervivencia()
+Supervivencia::Supervivencia(): Juego()
 {
-	initscr();
-	getmaxyx(stdscr, alturaTerminal, anchuraTerminal);
-
-	ALTO = alturaTerminal*0.13;
-	IZQUIERDA = (anchuraTerminal*0.074)-3;
-	BAJO = (alturaTerminal * 0.5)+3;
-	DERECHA = (anchuraTerminal * 0.85)-6;
+	this->setAlto(this->getAlturaTerminal()*0.13);
+	this->setIzquierda((this->getAnchuraTerminal()*0.074)-3);
+	this->setBajo((this->getAlturaTerminal() * 0.5)+3);
+	this->setDerecha((this->getAnchuraTerminal() * 0.85)-6);
 }
 void Supervivencia::mostrarNivel(int* num_ast)
 {
-	WINDOW* nivel = newwin(3, 12,alturaTerminal/2-1.5,anchuraTerminal/2-5.5);
+	WINDOW* nivel = newwin(3, 12,this->getAlturaTerminal()/2-1.5,this->getAnchuraTerminal()/2-5.5);
 	refresh();
 	box(nivel,0,0);
 	wmove(nivel, 1,1);
@@ -237,9 +223,9 @@ void Supervivencia::mostrarNivel(int* num_ast)
 }
 void Supervivencia::mostrarVidaExtra()
 {
-	int alturaVentanaS = BAJO+3;
-	int anchuraVentanaS = DERECHA+6;
-	WINDOW* vidaExtra = newwin(3, 15,alturaTerminal/2-1.5,anchuraTerminal/2-7.5);
+	int alturaVentanaS = this->getBajo()+3;
+	int anchuraVentanaS = this->getDerecha()+6;
+	WINDOW* vidaExtra = newwin(3, 15,this->getAlturaTerminal()/2-1.5,this->getAnchuraTerminal()/2-7.5);
 	refresh();
 	box(vidaExtra,0,0);
 	mvwprintw(vidaExtra,1,1, "VIDA EXTRA +1");
@@ -253,8 +239,8 @@ void Supervivencia::nuevaVidaExtra(VidaExtra* vidasExtra, int* num_vidasExtra)
 {
 	if(*num_vidasExtra < MAX_EXTRA)
 	{
-		vidasExtra[*num_vidasExtra].setX((rand()%(DERECHA-IZQUIERDA+1)) + IZQUIERDA);
-		vidasExtra[*num_vidasExtra].setY((rand()%(BAJO-ALTO+1)) + ALTO);
+		vidasExtra[*num_vidasExtra].setX((rand()%(this->getDerecha()-this->getIzquierda()+1)) + this->getIzquierda());
+		vidasExtra[*num_vidasExtra].setY((rand()%(this->getBajo()-this->getAlto()+1)) + this->getAlto());
 		(*num_vidasExtra)++;
 	}
 }
@@ -283,7 +269,7 @@ int Supervivencia::choqueVidasExtra(WINDOW* ventana, NaveSupervivencia* nave, Vi
 void Supervivencia::actualizarS(WINDOW* ventana, NaveSupervivencia* nave)
 {
 	werase(ventana);
-	nave->pintarVidas(anchuraTerminal);
+	nave->pintarVidas(this->getAnchuraTerminal());
    	box(ventana, 0,0);
 }
 void Supervivencia::liberarMemoriaS(NaveSupervivencia* nave, Asteroide* asteroides, int* num_ast, VidaExtra* vidasExtra, int* num_vidasExtra, WINDOW* ventana)
@@ -301,18 +287,18 @@ void Supervivencia::liberarMemoriaS(NaveSupervivencia* nave, Asteroide* asteroid
 }
 void Supervivencia::inicializarParametrosS(Asteroide* asteroides, NaveSupervivencia* nave, int* num_ast, VidaExtra* vidasExtra, int* num_vidasExtra)
 {
-	nave->setX((DERECHA+6)/2);
-	nave->setY(3*(BAJO+3)/4);
+	nave->setX((this->getDerecha()+6)/2);
+	nave->setY(3*(this->getBajo()+3)/4);
 	nave->setVidas(3);
 
-	asteroides[0].setX((DERECHA+6)/2-3);
-	asteroides[0].setY(ALTO);
+	asteroides[0].setX((this->getDerecha()+6)/2-3);
+	asteroides[0].setY(this->getAlto());
 	asteroides[0].setTipo(0);
 
 	*num_ast = 1;
 
-	vidasExtra[0].setX((rand()%(DERECHA-IZQUIERDA+1)) + IZQUIERDA);
-	vidasExtra[0].setY((rand()%(BAJO-ALTO+1)) + ALTO);
+	vidasExtra[0].setX((rand()%(this->getDerecha()-this->getIzquierda()+1)) + this->getIzquierda());
+	vidasExtra[0].setY((rand()%(this->getBajo()-this->getAlto()+1)) + this->getAlto());
 
 	*num_vidasExtra = 1;
 }
@@ -322,25 +308,25 @@ void Supervivencia::movimientosJugadorS(int tecla, NaveSupervivencia* nave)
     {
         case KEY_UP:
 
-        	if(nave->getY() > ALTO)
+        	if(nave->getY() > this->getAlto())
         		nave->setY(nave->getY()-2);
             break;
 
         case KEY_DOWN:
 
-        	if(nave->getY() < BAJO)
+        	if(nave->getY() < this->getBajo())
             	nave->setY(nave->getY()+2);
             break;
 
         case KEY_RIGHT:
 
-        	if(nave->getX() < DERECHA)
+        	if(nave->getX() < this->getDerecha())
             	nave->setX(nave->getX()+2);
             break;
 
         case KEY_LEFT:
 
-        	if(nave->getX() > IZQUIERDA)
+        	if(nave->getX() > this->getIzquierda())
             	nave->setX(nave->getX()-2);
             break;
 
@@ -378,7 +364,7 @@ void Supervivencia::jugar()
 
 	move(1,3);
 	printw("Bienvenido: MODO SUPERVIVENCIA");
-	move(2,anchuraTerminal/2); 
+	move(2,this->getAnchuraTerminal()/2); 
 	printw("Vidas: ");
 
 	WINDOW* ventana = mostrarJuego();
