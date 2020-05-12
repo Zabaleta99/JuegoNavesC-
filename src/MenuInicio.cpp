@@ -75,4 +75,9 @@ void MenuInicio::desplegarMenu()
 void MenuInicio::liberarMemoriaMenuInicio(const char** opciones, WINDOW* inicio)
 {
 
+
+    werase(inicio);
+    erase();
+    refresh();
+    wrefresh(inicio);
 }

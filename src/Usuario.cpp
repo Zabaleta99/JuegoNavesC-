@@ -8,6 +8,16 @@ using namespace std;
 
 int Usuario::MAX = 50;
 
+
+Usuario& Usuario::operator=(const Usuario &a)
+{
+    this->nickname = a.nickname;
+    this->contrasenya = a.contrasenya;
+    this->puntuaciones = a.puntuaciones;
+
+    return *this;
+}
+
 Usuario* Usuario::leerUsuarios(FILE *file, int *size)
 {
 	char* linea = new char[MAX];

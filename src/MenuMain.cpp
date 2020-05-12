@@ -7,6 +7,23 @@
 #include <iostream>
 using namespace std;
 
+
+#ifdef _WIN32
+    #include <windows.h>
+
+    void ssleepp(unsigned milliseconds)
+    {
+        Sleep(milliseconds);
+    }
+#else
+    #include <unistd.h>
+
+    void ssleepp(unsigned int milliseconds)
+    {
+        usleep(milliseconds * 1000);
+    }
+#endif
+
 void MenuMain::desplegarMenu()
 {
 
@@ -15,8 +32,6 @@ void MenuMain::desplegarMenu()
 MenuMain::MenuMain()
 {
 	tamanyoTerminal();
-	cout << getMAX_X();
-
 
 	FILE *file = fopen("Usuarios.txt", "r");
     if (file == NULL)
@@ -29,19 +44,26 @@ MenuMain::MenuMain()
     
     Usuario user;
     Usuario* usuarios = user.leerUsuarios(file, size);
-
+    //cout << "hola" << usuarios[1].getNickname();
+    
     int player;
     int opcion;
+    int selected;
     while(1)
     {
-        //opcion = menuInicio();
+        MenuInicio menIn;
+        opcion = menIn.menuInicio();
         switch(opcion)
         {   case 0:
-                //player = (int) menuIniciarSesion(usuarios, *size);
-                int selected;
+            {
+                MenuIniciarSesion menInSes;
+                player = (int) menInSes.menuIniciarSesion(usuarios, *size);
+                
+            }
                 while(1)
                 {
-                    //selected = menuPlayer();
+                    MenuPlayer menPlay;
+                    selected = menPlay.menuPlayer();
                     switch(selected)
                     {
                         case 0:
@@ -65,8 +87,11 @@ MenuMain::MenuMain()
                 }
                 break;
             case 1:
-                //menuRegistrarse(usuarios, *size);
+            {
+                MenuRegistrarse menReg;
+                menReg.menuRegistrarse(usuarios, *size);
                 break;
+            }
             default:
                 break;
         }

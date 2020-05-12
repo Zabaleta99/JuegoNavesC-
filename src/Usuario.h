@@ -24,6 +24,8 @@ class Usuario
 		Usuario* leerUsuarios(FILE *file, int *size);
 		void escribirUsuarios(Usuario *usuarios, int size);
 
+		Usuario& operator=(const Usuario &a);
+
 };
 
 #endif

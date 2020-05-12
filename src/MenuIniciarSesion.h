@@ -6,10 +6,11 @@
 
 class MenuIniciarSesion : public Menu
 {
-	MenuIniciarSesion(){}
-	int menuIniciarSesion(Usuario *usuarios, int size);
-	virtual void desplegarMenu();
-	void liberarMemoriaMenuInicioSesion(char* userIntroduced, char* passIntroduced, WINDOW* inicioSesion);
+	public:
+		MenuIniciarSesion(){}
+		int menuIniciarSesion(Usuario *usuarios, int size);
+		virtual void desplegarMenu();
+		void liberarMemoriaMenuInicioSesion(char* userIntroduced, char* passIntroduced, WINDOW* inicioSesion);
 };
 
 #endif

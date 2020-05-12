@@ -3,6 +3,10 @@
 
 #include "Menu.h"
 #include "Usuario.h"
+#include "MenuInicio.h"
+#include "MenuIniciarSesion.h"
+#include "MenuRegistrarse.h"
+#include "MenuPlayer.h"
 
 class MenuMain : public Menu
 {

@@ -1,6 +1,23 @@
+#ifdef _WIN32
+    #include <windows.h>
+
+    void sleeppp(unsigned milliseconds)
+    {
+        Sleep(milliseconds);
+    }
+#else
+    #include <unistd.h>
+
+    void sleeppp(unsigned int milliseconds)
+    {
+        usleep(milliseconds * 1000);
+    }
+#endif
+
 #include "MenuRegistrarse.h"
 #include "MenuMain.h"
 #include <string.h>
+
 
 void MenuRegistrarse::menuRegistrarse (Usuario *usuarios, int size)
 {
@@ -131,7 +148,7 @@ void MenuRegistrarse::menuRegistrarse (Usuario *usuarios, int size)
 
         Usuario user;
         user.escribirUsuarios(usuariosActualizados, size);
-        sleep(1000);
+        sleeppp(1000);
 
         liberarMemoriaMenuRegistrarse(registro, usuariosActualizados, size, userIntroduced, passIntroduced, passConfiIntroduced);
         MenuMain menMain;
@@ -144,4 +161,9 @@ void MenuRegistrarse::desplegarMenu()
 void MenuRegistrarse::liberarMemoriaMenuRegistrarse(WINDOW* registro, Usuario* usuariosActualizados, int size, char* userIntroduced, char* passIntroduced, char* passConfiIntroduced)
 {
 
+
+    werase(registro);
+    erase();
+    wrefresh(registro);
+    refresh();
 }

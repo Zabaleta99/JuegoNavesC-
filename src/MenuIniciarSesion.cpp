@@ -1,14 +1,14 @@
 #ifdef _WIN32
 	#include <windows.h>
 
-	void sleep(unsigned milliseconds)
+	void sleepp(unsigned milliseconds)
 	{
 		Sleep(milliseconds);
 	}
 #else
 	#include <unistd.h>
 
-	void sleep(unsigned int milliseconds)
+	void sleepp(unsigned int milliseconds)
 	{
 		usleep(milliseconds * 1000);
 	}
@@ -16,6 +16,8 @@
 
 
 #include "MenuIniciarSesion.h"
+    #include <iostream>
+    using namespace std;
 
 int MenuIniciarSesion::menuIniciarSesion(Usuario *usuarios, int size)
 {
@@ -92,7 +94,7 @@ int MenuIniciarSesion::menuIniciarSesion(Usuario *usuarios, int size)
         wattroff(stdscr, COLOR_PAIR(2));
         refresh();
 
-        sleep(1000);
+        sleepp(3000);
 
         liberarMemoriaMenuInicioSesion(userIntroduced, passIntroduced, inicioSesion);
 
@@ -117,9 +119,14 @@ int MenuIniciarSesion::menuIniciarSesion(Usuario *usuarios, int size)
 }
 void MenuIniciarSesion::desplegarMenu()
 {
-
+    
 }
 void MenuIniciarSesion::liberarMemoriaMenuInicioSesion(char* userIntroduced, char* passIntroduced, WINDOW* inicioSesion)
 {
-    
+
+
+    werase(inicioSesion);
+    erase();
+    refresh();
+    wrefresh(inicioSesion);
 }
