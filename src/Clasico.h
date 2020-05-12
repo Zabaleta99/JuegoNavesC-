@@ -21,6 +21,7 @@ public:
 	virtual void nuevoAsteroideHorizontal();
 	virtual void pintarAsteroideVertical(WINDOW* ventana);
 	virtual void pintarAsteroideHorizontal(WINDOW* ventana);
+	virtual int choque(WINDOW* ventana, Nave* nave, Asteroide* asteroide);
 	void crearBalas (Bala* balas, NaveClasico* nave, int* num_balas);
 	void mostrarPuntuacion (Usuario* usuarios, int player, float tiempo, int* disparosAcertados);
 	void pintarChoqueAsteroideBala (WINDOW* ventana, Bala* bala);

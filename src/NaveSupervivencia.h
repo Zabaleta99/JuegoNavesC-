@@ -7,7 +7,7 @@
 class NaveSupervivencia: public Nave
 {
 public:
-	NaveSupervivencia(): Nave(0,0,0){}
+	NaveSupervivencia(): Nave(-1,-1,-1){}
 	NaveSupervivencia(int x, int y, int vidas): Nave(x, y, vidas){}
 	virtual void pintarNaveChoque(WINDOW* ventana);
 	virtual void pintarVidas(int anchuraTerminal);
