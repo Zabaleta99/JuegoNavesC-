@@ -290,7 +290,7 @@ void Supervivencia::liberarMemoriaS(NaveSupervivencia* nave, Asteroide* asteroid
 {
 	delete nave;
 	delete[] asteroides;
-	delete[] vidasExtra
+	delete[] vidasExtra;
 	delete num_ast;
 	delete num_vidasExtra;
     wclear(ventana);
