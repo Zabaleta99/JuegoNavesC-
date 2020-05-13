@@ -1,6 +1,6 @@
 #include "Asteroide.h"
 
-int Asteroide::getX()
+int Asteroide::getX() const
 {
 	return x;
 }
@@ -8,7 +8,7 @@ void Asteroide::setX(int x)
 {
 	this->x=x;
 }
-int Asteroide::getY()
+int Asteroide::getY() const
 {
 	return y;
 }
@@ -16,7 +16,7 @@ void Asteroide::setY(int y)
 {
 	this->y=y;
 }
-int Asteroide::getTipo()
+int Asteroide::getTipo() const
 {
 	return tipo;
 }

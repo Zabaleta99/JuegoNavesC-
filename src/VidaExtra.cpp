@@ -1,6 +1,6 @@
 #include "VidaExtra.h"
 
-int VidaExtra::getX()
+int VidaExtra::getX() const
 {
 	return x;
 }
@@ -8,7 +8,7 @@ void VidaExtra::setX(int x)
 {
 	this->x = x;
 }
-int VidaExtra::getY()
+int VidaExtra::getY() const
 {
 	return y;
 }

@@ -8,9 +8,10 @@ class Bala
 public:
 	Bala(): x(-1), y(-1){}
 	Bala(int x, int y): x(x), y(y){}
-	int getX();
+	virtual ~Bala(){}
+	int getX() const;
 	void setX(int x);
-	int getY();
+	int getY() const;
 	void setY(int y);
 };
 

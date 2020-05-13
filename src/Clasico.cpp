@@ -2,22 +2,22 @@
 
 #ifdef _WIN32
 	#include <windows.h>
-	void sleep(unsigned milliseconds)
+	void sleepC(unsigned milliseconds)
 	{
 		Sleep(milliseconds);
 	}
 #else
 	#include <unistd.h>
 
-	void sleep(unsigned int milliseconds)
+	void sleepC(unsigned int milliseconds)
 	{
 		usleep(milliseconds * 1000);
 	}
 #endif
 
-int Clasico::MAX_AST = 20;
-int Clasico::MAX_LENGHT = 15;
-int Clasico::MAX_BALAS = 200;
+const int Clasico::MAX_AST = 20;
+const int Clasico::MAX_LENGHT = 15;
+const int Clasico::MAX_BALAS = 200;
 
 Clasico::Clasico(): Juego()
 {
@@ -399,7 +399,7 @@ void Clasico::jugar(/*Usuario* usuarios, int player*/)
 
 	WINDOW* info = mostrarInfo();
 
-	sleep(5000);
+	sleepC(5000);
 
 	wclear(info);
 	wrefresh(info);
@@ -478,11 +478,11 @@ void Clasico::jugar(/*Usuario* usuarios, int player*/)
 
 	        if(choqueAsteroide)
 	        {
-	        	sleep(500);
+	        	sleepC(500);
 	        }
 	        if(choqueBala)
 	        {
-	        	sleep(50);
+	        	sleepC(50);
 	        }
 
 	        if(nave->getCorazones() == 0)
@@ -504,7 +504,7 @@ void Clasico::jugar(/*Usuario* usuarios, int player*/)
 	    	tecla = wgetch(ventana);
 	    	movimientosJugadorC(tecla, nave, balas, num_balas);
 
-	        sleep(50);
+	        sleepC(50);
 	        segundos +=0.050;
 	        tiempo +=0.050;
 	        choqueAsteroide = 0;

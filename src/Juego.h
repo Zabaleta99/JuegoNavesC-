@@ -3,6 +3,7 @@
 #include <curses.h>
 #include "Asteroide.h"
 #include "Nave.h"
+
 class Juego
 {
 	int ALTO;
@@ -14,6 +15,7 @@ class Juego
 	int anchuraTerminal;
 public:
 	Juego();
+	virtual ~Juego(){}
 	virtual void pintarAsteroides(WINDOW* ventana, Asteroide* asteroides, int* num_ast) = 0;
 	virtual void subirNivel(Asteroide* asteroides, int* num_ast) = 0;
 	virtual void mostrarGameOver() = 0;

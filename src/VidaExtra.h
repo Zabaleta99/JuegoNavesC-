@@ -8,9 +8,9 @@ class VidaExtra
 public: 
 	VidaExtra(): x(-1), y(-1){}
 	VidaExtra(int x, int y): x(x), y(y){}
-	int getX();
+	int getX() const;
 	void setX(int x);
-	int getY();
+	int getY() const;
 	void setY(int y);
 };
 

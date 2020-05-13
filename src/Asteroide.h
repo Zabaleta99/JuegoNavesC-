@@ -10,11 +10,12 @@ class Asteroide
 public:
 	Asteroide(): x(-1), y(-1), tipo(-1){}
 	Asteroide(int x, int y, int tipo): x(x), y(y), tipo(tipo){}
-	int getX();
+	virtual ~Asteroide(){}
+	int getX() const;
 	void setX(int x);
-	int getY();
+	int getY() const;
 	void setY(int y);
-	int getTipo();
+	int getTipo() const;
 	void setTipo(int tipo);
 };
 

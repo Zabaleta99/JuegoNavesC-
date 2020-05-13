@@ -8,11 +8,12 @@
 
 class Clasico: public Juego
 {
-	static int MAX_AST;
-	static int MAX_BALAS;
-	static int MAX_LENGHT;
+	static const int MAX_AST;
+	static const int MAX_BALAS;
+	static const int MAX_LENGHT;
 public:
 	Clasico();
+	virtual ~Clasico(){}
 	virtual void pintarAsteroides(WINDOW* ventana, Asteroide* asteroides, int* num_ast);
 	virtual void subirNivel(Asteroide* asteroides, int* num_ast);
 	virtual void mostrarGameOver();

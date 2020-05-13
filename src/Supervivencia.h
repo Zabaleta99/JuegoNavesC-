@@ -8,11 +8,12 @@
 
 class Supervivencia : public Juego
 {
-	static int MAX_AST;
-	static int MAX_EXTRA;
-	static int MAX_LENGHT;
+	static const int MAX_AST;
+	static const int MAX_EXTRA;
+	static const int MAX_LENGHT;
 public:
 	Supervivencia();
+	virtual ~Supervivencia(){}
 	virtual void pintarAsteroides(WINDOW* ventana, Asteroide* asteroides, int* num_ast);
 	virtual void subirNivel(Asteroide* asteroides, int* num_ast);
 	virtual void mostrarGameOver();

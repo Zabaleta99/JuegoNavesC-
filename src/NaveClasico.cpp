@@ -21,9 +21,9 @@ void NaveClasico::pintarNave(WINDOW* ventana)
 	wmove(ventana, this->getY(), this->getX()); wprintw(ventana, "****");
 	wmove(ventana, this->getY()-1, this->getX()+1); wprintw(ventana, "**");
 }
-int NaveClasico::getCorazones()
+int NaveClasico::getCorazones() const
 {
-	return corazones;
+	return this->corazones;
 }
 void NaveClasico::setCorazones(int corazones)
 {

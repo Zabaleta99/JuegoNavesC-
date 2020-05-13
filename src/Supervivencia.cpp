@@ -1,14 +1,14 @@
 #ifdef _WIN32
 	#include <windows.h>
 
-	void sleep(unsigned milliseconds)
+	void sleepS(unsigned milliseconds)
 	{
 		Sleep(milliseconds);
 	}
 #else
 	#include <unistd.h>
 
-	void sleep(unsigned int milliseconds)
+	void sleepS(unsigned int milliseconds)
 	{
 		usleep(milliseconds * 1000);
 	}
@@ -16,9 +16,9 @@
 
 #include "Supervivencia.h"
 
-int Supervivencia::MAX_AST = 15;
-int Supervivencia::MAX_EXTRA = 5;
-int Supervivencia::MAX_LENGHT = 20;
+const int Supervivencia::MAX_AST = 15;
+const int Supervivencia::MAX_EXTRA = 5;
+const int Supervivencia::MAX_LENGHT = 20;
 
 void Supervivencia::pintarAsteroides(WINDOW* ventana, Asteroide* asteroides, int* num_ast)
 {
@@ -215,7 +215,7 @@ void Supervivencia::mostrarNivel(int* num_ast)
 	wmove(nivel, 1,1);
 	wprintw(nivel, "NIVEL: %d", *num_ast);
 	wrefresh(nivel);
-	sleep(3000);
+	sleepS(3000);
 	wclear(nivel);
 	wrefresh(nivel);
 	delwin(nivel);
@@ -230,7 +230,7 @@ void Supervivencia::mostrarVidaExtra()
 	box(vidaExtra,0,0);
 	mvwprintw(vidaExtra,1,1, "VIDA EXTRA +1");
 	wrefresh(vidaExtra);
-	sleep(1000);
+	sleepS(1000);
 	wclear(vidaExtra);
 	wrefresh(vidaExtra);
 	delwin(vidaExtra);
@@ -356,7 +356,7 @@ void Supervivencia::jugar()
 	tamanyoTerminal();
 	WINDOW* info = mostrarInfo();
 
-	sleep(5000);
+	sleepS(5000);
 
 	wclear(info);
 	wrefresh(info);
@@ -418,7 +418,7 @@ void Supervivencia::jugar()
 
 	        if(choque_asteroide) 
 	        {
-	        	sleep(100);
+	        	sleepS(100);
 			}
 			if(choque_vidaExtra) mostrarVidaExtra();
 
@@ -435,7 +435,7 @@ void Supervivencia::jugar()
 	        tecla = wgetch(ventana);
 	        movimientosJugadorS(tecla, nave);
 
-	        sleep(35);
+	        sleepS(35);
 	        segundos +=0.035;
 	        choque_asteroide = 0;
 	        choque_vidaExtra = 0;
