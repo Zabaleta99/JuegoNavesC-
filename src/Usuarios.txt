@@ -1,0 +1,15 @@
+14
+paul;hernandez;3.00;7.00
+jon;zaba;0.00;3.00
+joxe;angel;325.50;2.00
+txanogorritxu;basoradoa;638.00;1.00
+joseluis;korta;0.00;2.00
+pernando;hernandez;0.00;0.00
+a;s;419.00;2.00
+jeje;jaja;0.00;0.00
+jiji;jojo;0.00;0.00
+juju;jeje;0.00;0.00
+haha;hehe;0.00;0.00
+hehe;hihi;0.00;0.00
+hoho;huhu;0.00;0.00
+pol;fer;0.00;0.00

@@ -19,11 +19,10 @@ int MenuInicio::menuInicio()
     keypad(inicio, TRUE);
 
     const char** opciones = new const char*[3];
-    //char** opciones = malloc(3 * sizeof(char*));
+
     for(int i=0; i<3; i++)
     {
     	opciones[i] = new char[getMAX()];
-        //opciones[i] = malloc(MAX * sizeof(char));
     }
     opciones[0] = "INICIAR SESION";
     opciones[1] = "REGISTRARSE";
@@ -74,7 +73,11 @@ void MenuInicio::desplegarMenu()
 }
 void MenuInicio::liberarMemoriaMenuInicio(const char** opciones, WINDOW* inicio)
 {
-
+    for (int i=0; i<3; i++)
+    {
+        delete [] opciones[i];
+    }
+    delete [] opciones;
 
     werase(inicio);
     erase();

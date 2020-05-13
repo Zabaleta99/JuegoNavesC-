@@ -13,9 +13,10 @@ class Usuario
 
 	public:
 		Usuario(){}
-		void setNickname (char* n) {this->nickname = n;}
-		void setContrasenya (char* n) {this->contrasenya = n;}
-		void setPuntuaciones (float* n) {this->puntuaciones = n;}
+		~Usuario();
+		void setNickname (char* n);
+		void setContrasenya (char* n);
+		void setPuntuaciones (float* n);
 
 		char* getNickname ()const {return this->nickname;}
 		char* getContrasenya ()const {return this->contrasenya;}

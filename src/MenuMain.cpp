@@ -31,9 +31,12 @@ void MenuMain::desplegarMenu()
 
 MenuMain::MenuMain()
 {
-	tamanyoTerminal();
+	tamanyoTerminal();	
+}
 
-	FILE *file = fopen("Usuarios.txt", "r");
+void MenuMain::menuPrincipal()
+{
+    FILE *file = fopen("Usuarios.txt", "r");
     if (file == NULL)
     {
         cout <<"Error al abrir el fichero Usuarios.txt\n" << endl;
@@ -99,10 +102,9 @@ MenuMain::MenuMain()
     }
     liberarMemoriaMenuMain (size, usuarios);
     exit(0);
-	
 }
-
 void MenuMain::liberarMemoriaMenuMain (int *size, Usuario* arrayUsers)
 {
-    
+    delete [] arrayUsers;
+    delete size;
 }

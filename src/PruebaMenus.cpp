@@ -9,5 +9,7 @@ int main()
     noecho();
     curs_set(0);
 	MenuMain* a = new MenuMain();
+	a->menuPrincipal();
+	delete a;
 	return 1;
 }

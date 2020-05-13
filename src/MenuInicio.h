@@ -8,6 +8,7 @@ class MenuInicio : public Menu
 {
 	public:
 		MenuInicio(){}
+		virtual ~MenuInicio(){}
 		int menuInicio();
 		virtual void desplegarMenu();
 		void liberarMemoriaMenuInicio(const char** opciones, WINDOW* inicio);

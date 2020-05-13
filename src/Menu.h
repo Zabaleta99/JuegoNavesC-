@@ -11,6 +11,7 @@ class Menu
 		static int MAX;
 
 	public:
+		virtual ~Menu(){}
 		void setMAX_X(int a) {this->MAX_X = a;}
 		void setMAX_Y(int a) {this->MAX_Y = a;}
 		void setContadorSalida(int a) {this->contadorSalida = a;}
@@ -24,9 +25,6 @@ class Menu
 		void tamanyoTerminal();
 
 		virtual void desplegarMenu() = 0;
-		//liberarMemoria?
-
-
 };
 
 

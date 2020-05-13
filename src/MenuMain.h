@@ -12,6 +12,8 @@ class MenuMain : public Menu
 {
 	public:
 		MenuMain();
+		virtual ~MenuMain(){}
+		void menuPrincipal ();
 		void liberarMemoriaMenuMain (int *size, Usuario* arrayUsers);
 		virtual void desplegarMenu();
 		

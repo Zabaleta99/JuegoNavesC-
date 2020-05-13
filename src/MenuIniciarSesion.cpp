@@ -49,14 +49,12 @@ int MenuIniciarSesion::menuIniciarSesion(Usuario *usuarios, int size)
     wgetnstr(inicioSesion, aux, getMAX());
 
     char* userIntroduced = new char [strlen(aux)+1];
-    //char *userIntroduced = (char *) malloc((strlen(aux)+1) * sizeof(char));
     sscanf(aux, "%s", userIntroduced);
 
     wmove(inicioSesion, 2, 11);
     wgetnstr(inicioSesion, aux, getMAX());
 
     char* passIntroduced = new char [strlen(aux)+1];
-    //char *passIntroduced = (char *) malloc((strlen(aux)+1) * sizeof(char));
     sscanf(aux, "%s", passIntroduced);
 
     int boolean = 0;
@@ -123,7 +121,8 @@ void MenuIniciarSesion::desplegarMenu()
 }
 void MenuIniciarSesion::liberarMemoriaMenuInicioSesion(char* userIntroduced, char* passIntroduced, WINDOW* inicioSesion)
 {
-
+    delete [] userIntroduced;
+    delete passIntroduced;
 
     werase(inicioSesion);
     erase();

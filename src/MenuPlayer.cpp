@@ -17,11 +17,10 @@ int MenuPlayer::menuPlayer()
     keypad(player, TRUE);
 
     const char** opciones = new const char* [5];
-    //char** opciones = malloc(5 * sizeof(char*));
+
     for(int i=0; i<5; i++)
     {
     	opciones[i] = new char[getMAX()];
-        //opciones[i] = malloc(MAX * sizeof(char));
     }
     opciones[0] = "JUGAR CLASICO";
     opciones[1] = "JUGAR SUPERVIVENCIA";
@@ -70,11 +69,15 @@ int MenuPlayer::menuPlayer()
 }
 void MenuPlayer::desplegarMenu()
 {
-
+	
 }
 void MenuPlayer::liberarMemoriaMenuPlayer(WINDOW* player, const char** opciones)
 {
-
+	for (int i=0; i<5; i++)
+    {
+        delete [] opciones[i];
+    }
+    delete [] opciones;
 	
 	werase(player);
     erase();

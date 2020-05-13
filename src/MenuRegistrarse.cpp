@@ -17,6 +17,8 @@
 #include "MenuRegistrarse.h"
 #include "MenuMain.h"
 #include <string.h>
+    #include <iostream>
+using namespace std;
 
 
 void MenuRegistrarse::menuRegistrarse (Usuario *usuarios, int size)
@@ -57,7 +59,6 @@ void MenuRegistrarse::menuRegistrarse (Usuario *usuarios, int size)
     wgetnstr(registro, aux, getMAX());
 
     char *userIntroduced = new char [strlen(aux)+1];
-    //char *userIntroduced = (char *) malloc((strlen(aux)+1) * sizeof(char));
     sscanf(aux, "%s", userIntroduced);
 
     int bl = 0;
@@ -81,7 +82,6 @@ void MenuRegistrarse::menuRegistrarse (Usuario *usuarios, int size)
 
         wgetnstr(registro, aux, getMAX());
         userIntroduced = new char [strlen(aux)+1];
-        //userIntroduced = (char *) malloc((strlen(aux)+1) * sizeof(char));
         sscanf(aux, "%s", userIntroduced);
 
         bl = 0;
@@ -103,13 +103,11 @@ void MenuRegistrarse::menuRegistrarse (Usuario *usuarios, int size)
     wmove(registro, 2, 11);
     wgetnstr(registro, aux, getMAX());
     char *passIntroduced = new char [strlen(aux)+1];
-    //char *passIntroduced = (char *) malloc((strlen(aux)+1) * sizeof(char));
     sscanf(aux, "%s", passIntroduced);
 
     wmove(registro, 3, 19);
     wgetnstr(registro, aux, getMAX());
     char *passConfiIntroduced = new char [strlen(aux)+1];
-    //char *passConfiIntroduced = (char *) malloc((strlen(aux)+1) * sizeof(char));
     sscanf(aux, "%s", passConfiIntroduced);
 
     if (strcmp(passIntroduced, passConfiIntroduced) != 0)
@@ -125,43 +123,46 @@ void MenuRegistrarse::menuRegistrarse (Usuario *usuarios, int size)
         wprintw(stdscr, "REGISTRADO!");
         refresh();
         usuariosActualizados = new Usuario [size+1];
-        //usuariosActualizados = (Usuario *) malloc ((size+1) * sizeof(Usuario));
+
         for (int i=0; i<size; i++)
         {
             usuariosActualizados[i] = usuarios[i];
         }
+ 
+        usuariosActualizados[size].setNickname(userIntroduced);
+    
+        usuariosActualizados[size].setContrasenya(passIntroduced);
 
-        /*usuariosActualizados[size].getNickname = new char [strlen(userIntroduced)+1];
-        //usuariosActualizados[size].nickname = (char *) malloc((strlen(userIntroduced)+1) * sizeof(char));
-        sscanf(userIntroduced, "%s", usuariosActualizados[size].getNickname());
-
-        usuariosActualizados[size].getContrasenya() = new char [strlen(passIntroduced)+1];
-
-        //usuariosActualizados[size].contrasenya = (char *) malloc((strlen(passIntroduced)+1) * sizeof(char));
-        sscanf(passIntroduced, "%s", usuariosActualizados[size].getContrasenya());
-
-        usuariosActualizados[size].getPuntuaciones = new float[2];
-        //usuariosActualizados[size].puntuaciones = malloc(2 * sizeof(float));*/  //ESTA MAL, CORREGIR
+        float* initializeNull = new float [2];
+        initializeNull[0] = 0.0f;
+        initializeNull[1] = 0.0f;
+        usuariosActualizados[size].setPuntuaciones(initializeNull);
         
         size++;
 
-
         Usuario user;
         user.escribirUsuarios(usuariosActualizados, size);
+
         sleeppp(1000);
 
-        liberarMemoriaMenuRegistrarse(registro, usuariosActualizados, size, userIntroduced, passIntroduced, passConfiIntroduced);
+        liberarMemoriaMenuRegistrarse(registro, usuariosActualizados, size, userIntroduced, passIntroduced, passConfiIntroduced, initializeNull);
+
         MenuMain menMain;
+        menMain.menuPrincipal();
     }
 }
 void MenuRegistrarse::desplegarMenu()
 {
 
 }
-void MenuRegistrarse::liberarMemoriaMenuRegistrarse(WINDOW* registro, Usuario* usuariosActualizados, int size, char* userIntroduced, char* passIntroduced, char* passConfiIntroduced)
+void MenuRegistrarse::liberarMemoriaMenuRegistrarse(WINDOW* registro, Usuario* usuariosActualizados, int size, char* userIntroduced, char* passIntroduced, char* passConfiIntroduced, float* initializeNull)
 {
-
-
+    delete [] usuariosActualizados;
+    delete [] userIntroduced;
+    delete [] passIntroduced;
+    delete [] passConfiIntroduced;
+    delete [] initializeNull;
+    
     werase(registro);
     erase();
     wrefresh(registro);

@@ -9,11 +9,40 @@ using namespace std;
 int Usuario::MAX = 50;
 
 
+Usuario::~Usuario()
+{
+	delete [] nickname;
+	delete [] contrasenya;
+	delete [] puntuaciones;
+}
+void Usuario::setNickname (char* n) 
+{
+	this->nickname = new char[strlen(n)+1];
+	strcpy(this->nickname, n);
+}
+void Usuario::setContrasenya (char* n) 
+{
+	this->contrasenya = new char[strlen(n)+1];
+	strcpy(this->contrasenya, n);
+}
+void Usuario::setPuntuaciones (float* n) 
+{
+	this->puntuaciones = new float [2];
+	this->puntuaciones[0] = n[0];
+	this->puntuaciones[1] = n[1];
+}
+
 Usuario& Usuario::operator=(const Usuario &a)
 {
-    this->nickname = a.nickname;
-    this->contrasenya = a.contrasenya;
-    this->puntuaciones = a.puntuaciones;
+	this->nickname = new char[strlen(a.nickname)+1];
+	strcpy(this->nickname, a.nickname);
+
+    this->contrasenya = new char[strlen(a.contrasenya)+1];
+	strcpy(this->contrasenya, a.contrasenya);
+
+    this->puntuaciones = new float [2];
+    this->puntuaciones[0] = a.puntuaciones[0];
+    this->puntuaciones[1] = a.puntuaciones[1];
 
     return *this;
 }
@@ -22,14 +51,11 @@ Usuario* Usuario::leerUsuarios(FILE *file, int *size)
 {
 	char* linea = new char[MAX];
 	char** items = new char*[4];
-	/*char* linea = malloc(MAX * sizeof(char));
-	char** items = malloc(4 * sizeof(char*));*/
 
 	fgets(linea, MAX, file);
 	sscanf(linea, "%d", size);
 
 	Usuario* usuarios = new Usuario [*size];
-	//Usuario *usuarios = (Usuario*) malloc(*size * sizeof(Usuario));
 
 	int contador = 0;
 	while(fgets(linea, MAX, file))
@@ -49,17 +75,10 @@ Usuario* Usuario::leerUsuarios(FILE *file, int *size)
 		usuarios[contador].contrasenya = new char [strlen(items[1])+1];
 		strcpy(usuarios[contador].contrasenya, items[1]);
 
-		/*usuarios[contador].nickname = malloc((strlen(items[0])+1) * sizeof(char));
-		strcpy(usuarios[contador].nickname, items[0]);
-		usuarios[contador].contrasenya = malloc((strlen(items[1])+1) * sizeof(char));
-		strcpy(usuarios[contador].contrasenya, items[1]);*/
-
 		usuarios[contador].puntuaciones = new float [2];
-
-		/*usuarios[contador].puntuaciones = malloc(2 * sizeof(float));*/
-
 		usuarios[contador].puntuaciones[0] = strtof(items[2], NULL);
 		usuarios[contador].puntuaciones[1] = strtof(items[3], NULL);
+
 		contador++;
 	}
 	delete [] linea;
@@ -68,10 +87,7 @@ Usuario* Usuario::leerUsuarios(FILE *file, int *size)
     	delete[] items[i];
     }
 	delete [] items;
-	/*free(linea);
-	linea = NULL;
-	free(items);
-	items = NULL;*/
+	
 	return usuarios;
 }
 
@@ -100,6 +116,4 @@ void Usuario::escribirUsuarios(Usuario *usuarios, int size)
 	}
 	fclose(file);
 	delete file;
-	//free(file);
-	//file = NULL;
 }
