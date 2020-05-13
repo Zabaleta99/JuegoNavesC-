@@ -7,6 +7,8 @@
 #include "MenuIniciarSesion.h"
 #include "MenuRegistrarse.h"
 #include "MenuPlayer.h"
+#include "Clasico.h"
+#include "Supervivencia.h"
 
 class MenuMain : public Menu
 {

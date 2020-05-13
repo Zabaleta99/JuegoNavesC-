@@ -5,6 +5,7 @@
 #include "NaveClasico.h"
 #include "Asteroide.h"
 #include "Bala.h"
+#include "Usuario.h"
 
 class Clasico: public Juego
 {
@@ -21,14 +22,14 @@ public:
 	virtual WINDOW* mostrarInfo();
 	virtual WINDOW* mostrarJuego();
 	virtual void tamanyoTerminal();
-	/*virtual */void jugar(/*Usuario* usuarios, int player*/);
+	virtual void jugar(Usuario* usuarios, int player);
 	virtual void nuevoAsteroideVertical(Asteroide* asteroide);
 	virtual void nuevoAsteroideHorizontal(Asteroide* asteroide);
 	virtual void pintarAsteroideVertical(WINDOW* ventana, Asteroide* asteroide);
 	virtual void pintarAsteroideHorizontal(WINDOW* ventana, Asteroide* asteroide);
 	virtual int choque(WINDOW* ventana, Nave* nave, Asteroide* asteroide);
 	void crearBalas (Bala* balas, NaveClasico* nave, int* num_balas);
-	void mostrarPuntuacion (/*Usuario* usuarios, int player,*/ float tiempo, int* disparosAcertados);
+	void mostrarPuntuacion (Usuario* usuarios, int player, float tiempo, int* disparosAcertados);
 	void pintarChoqueAsteroideBala (WINDOW* ventana, Bala* bala);
 	int choqueBalaAsteroide(WINDOW* ventana, Bala* bala, Asteroide* asteroide, int* disparosAcertados);
 	void pintarBala(WINDOW* ventana, Bala* bala);

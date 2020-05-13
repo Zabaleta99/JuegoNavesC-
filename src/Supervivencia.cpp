@@ -344,12 +344,13 @@ void Supervivencia::reestablecerValoresS(Asteroide* asteroides, int* num_ast)
 	}
 	*num_ast = 0;
 }
-/*void Supervivencia::guardarPuntuacion(Usuario* usuarios, int player, int* num_ast)
+void Supervivencia::guardarPuntuacion(Usuario* usuarios, int player, int* num_ast)
 {
-	
-}*/
+	if(*num_ast > usuarios[player].getPuntuaciones()[1])
+		usuarios[player].setPuntuacionSupervivencia(*num_ast);
+}
 
-void Supervivencia::jugar()
+void Supervivencia::jugar(Usuario* usuarios, int player)
 {
 	initscr();
 	curs_set(0);
@@ -424,7 +425,7 @@ void Supervivencia::jugar()
 
 	        if(nave->getVidas() == 0)
 	        {
-	        	//guardarPuntuacion(usuarios, player, num_ast);
+	        	guardarPuntuacion(usuarios, player, num_ast);
 	        	mostrarGameOver();
 	        	choque_asteroide = 0;
 	        	choque_vidaExtra = 0;

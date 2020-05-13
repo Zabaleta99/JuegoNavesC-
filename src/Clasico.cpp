@@ -188,16 +188,13 @@ void Clasico::crearBalas (Bala* balas, NaveClasico* nave, int* num_balas)
 		*num_balas += 2;
 	}
 }
-void Clasico::mostrarPuntuacion (/*Usuario* usuarios, int player,*/ float tiempo, int* disparosAcertados)
+void Clasico::mostrarPuntuacion (Usuario* usuarios, int player, float tiempo, int* disparosAcertados)
 {
 	float puntuacionTotal = tiempo*10 + *disparosAcertados;
-	//Tema puntuacion de usuarios pendiente
-	//if(puntuacionTotal > usuarios[player].puntuaciones[0])
-	//	usuarios[player].puntuaciones[0] = puntuacionTotal;
+	
+	if(puntuacionTotal > usuarios[player].getPuntuaciones()[0])
+		usuarios[player].setPuntuacionClasico(puntuacionTotal);
 
-	//Creo que no sirve de nada
-	//int alturaVentanaClasico = BAJO;
-	//int anchuraVentanaClasico = DERECHA+6;
 	WINDOW* puntuacion = newwin(7, 45, this->getAlturaTerminal()/2-3.5, this->getAnchuraTerminal()/2-22.5);
 	refresh();
 	box(puntuacion,0,0);
@@ -392,8 +389,8 @@ void Clasico::movimientosJugadorC(int tecla, NaveClasico* nave, Bala* balas, int
         	break;
     }
 }
-//Por ahora dejamos de lado tema usuario
-void Clasico::jugar(/*Usuario* usuarios, int player*/)
+
+void Clasico::jugar(Usuario* usuarios, int player)
 {
 	curs_set(0);
 
@@ -493,7 +490,7 @@ void Clasico::jugar(/*Usuario* usuarios, int player*/)
         	if(nave->getVidas() == 0)
         	{
         		mostrarGameOver();
-        		mostrarPuntuacion(/*usuarios, player,*/ tiempo,disparosAcertados);
+        		mostrarPuntuacion(usuarios, player, tiempo,disparosAcertados);
         		choqueAsteroide = 0;
 	        	choqueBala = 0;
 	        	segundos = 0;

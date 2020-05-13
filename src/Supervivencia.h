@@ -5,6 +5,7 @@
 #include "NaveSupervivencia.h"
 #include "Asteroide.h"
 #include "VidaExtra.h"
+#include "Usuario.h"
 
 class Supervivencia : public Juego
 {
@@ -21,7 +22,7 @@ public:
 	virtual WINDOW* mostrarInfo();
 	virtual WINDOW* mostrarJuego();
 	virtual void tamanyoTerminal();
-	/*virtual*/void jugar(/*Usuario* usuarios, int player*/);
+	void jugar(Usuario* usuarios, int player);
 	virtual void nuevoAsteroideVertical(Asteroide* asteroide);
 	virtual void nuevoAsteroideHorizontal(Asteroide* asteroide);
 	virtual void pintarAsteroideVertical(WINDOW* ventana, Asteroide* asteroide);
@@ -37,7 +38,7 @@ public:
 	void inicializarParametrosS(Asteroide* asteroides,NaveSupervivencia* nave, int* num_ast, VidaExtra* vidasExtra, int* num_vidasExtra);
 	void movimientosJugadorS(int tecla, NaveSupervivencia* nave);
 	void reestablecerValoresS(Asteroide* asteroides, int* num_ast);
-	//void guardarPuntuacion(Usuario* usuarios, int player, int* num_ast);
+	void guardarPuntuacion(Usuario* usuarios, int player, int* num_ast);
 };
 
 #endif

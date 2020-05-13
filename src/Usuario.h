@@ -22,6 +22,9 @@ class Usuario
 		char* getContrasenya ()const {return this->contrasenya;}
 		float* getPuntuaciones ()const {return this->puntuaciones;}
 
+		void setPuntuacionClasico (float f);
+		void setPuntuacionSupervivencia (float f);
+
 		Usuario* leerUsuarios(FILE *file, int *size);
 		void escribirUsuarios(Usuario *usuarios, int size);
 

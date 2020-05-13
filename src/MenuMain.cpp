@@ -70,13 +70,19 @@ void MenuMain::menuPrincipal()
                     switch(selected)
                     {
                         case 0:
-                           // jugarClasico(usuarios, player);
-                            //escribirUsuarios(usuarios, *size);
+                        {
+                            Clasico classic;
+                            classic.jugar(usuarios, player);
+                            user.escribirUsuarios(usuarios, *size);
                             break;
+                        }    
                         case 1:
-                            //jugarSupervivencia(usuarios, player);
-                            //escribirUsuarios(usuarios, *size);
+                        {
+                            Supervivencia supervi;
+                            supervi.jugar(usuarios, player);
+                            user.escribirUsuarios(usuarios, *size);
                             break;
+                        }
                         case 2:
                             //rankingClasico(usuarios, *size);
                             break;

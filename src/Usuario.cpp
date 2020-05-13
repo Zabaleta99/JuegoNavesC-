@@ -32,6 +32,16 @@ void Usuario::setPuntuaciones (float* n)
 	this->puntuaciones[1] = n[1];
 }
 
+void Usuario::setPuntuacionClasico (float f)
+{
+	this->puntuaciones[0] = f;
+}
+
+void Usuario::setPuntuacionSupervivencia (float f)
+{
+	this->puntuaciones[1] = f;
+}
+
 Usuario& Usuario::operator=(const Usuario &a)
 {
 	this->nickname = new char[strlen(a.nickname)+1];
