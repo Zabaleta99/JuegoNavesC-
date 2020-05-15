@@ -1,6 +1,6 @@
 #include "Clasico.h"
-#include "Objects.h"
-
+#include <iostream>
+using namespace std;
 #ifdef _WIN32
 	#include <windows.h>
 	void sleepC(unsigned milliseconds)
@@ -263,7 +263,7 @@ void Clasico::pintarBala(WINDOW* ventana, Bala* bala)
 
 	bala->setY(bala->getY()-1);
 
-	if (bala->getY() == this->getAlto()-2)
+	if(bala->getY() == this->getAlto()-2)
 	{
 		bala->setX(-1);
 		bala->setY(-1);
@@ -393,27 +393,36 @@ void Clasico::movimientosJugadorC(int tecla, NaveClasico* nave, Bala* balas, int
 
 void guardarPartida(Usuario* usuarios, int player, NaveClasico* nave, Asteroide* asteroides, int* num_ast, Bala* balas, int* num_balas)
 {
-	Object* objects = usuarios[player].getObjects().getArray();
+	usuarios[player].setObjects();
+	int* objects = usuarios[player].getObjects();
+	int contador = 0;
 
-	objects[0] = *nave;
+	objects[0] = nave->getX();
 
-	Number size = *num_ast;
-	objects[1] = size;
+	objects[1] = nave->getY();
+
+	objects[2] = (*num_ast)*2;
+
+	contador =3;
 	if(*num_ast > 0)
 	{
 		for(int i=0; i<*num_ast; i++)
 		{
-			objects[i+2] = asteroides[i];
+			objects[contador] = asteroides[i].getX();
+			objects[contador+1] = asteroides[i].getY();
+			contador+=2;
 		}
 	}
 
-	Number size = *num_balas;
-	objects[2+*num_ast] = size;
+	objects[contador] = (*num_balas)*2;
+	contador++;
 	if(*num_balas > 0)
 	{
 		for(int i=0; i<*num_balas; i++)
-		{
-			objects[i+3+*num_ast] = balas[i];
+		{	
+			objects[contador] = balas[i].getX();
+			objects[contador+1] = balas[i].getY();
+			contador+=2;
 		}
 	}
 }
@@ -489,7 +498,7 @@ void Clasico::jugar(Usuario* usuarios, int player)
 	        }
 	        for (int i=0; i<*num_balas; i++)
 	        {
-	        	pintarBala(ventana, &balas[i]);
+	        	pintarBala(ventana, (balas+i));
 	        }
 
 	        pintarAsteroides(ventana, asteroides, num_ast);
@@ -515,9 +524,19 @@ void Clasico::jugar(Usuario* usuarios, int player)
         		nave->setVidas(nave->getVidas()-1);
         		nave->setCorazones(3);
         	}
-        	if(nave->getVidas() == 0)
+
+	    	tecla = wgetch(ventana);
+	    	movimientosJugadorC(tecla, nave, balas, num_balas);
+
+	    	if(nave->getVidas() == 0 || tecla==115 || tecla==103)
         	{
-        		mostrarGameOver();
+        		if(tecla == 103)
+        		{
+        			//Mostrar etiqueta de Guardar partida
+        			guardarPartida(usuarios, player, nave, asteroides, num_ast, balas, num_balas);//faltarian guardar los segundos y balas acertadas
+        		}
+        		if(nave->getVidas() == 0)
+        			mostrarGameOver();
         		mostrarPuntuacion(usuarios, player, tiempo,disparosAcertados);
         		choqueAsteroide = 0;
 	        	choqueBala = 0;
@@ -525,11 +544,6 @@ void Clasico::jugar(Usuario* usuarios, int player)
 	        	tiempo = 0;
         		break;
         	}
-
-	    	tecla = wgetch(ventana);
-	    	movimientosJugadorC(tecla, nave, balas, num_balas);
-	    	if(tecla == "s")
-	    		guardarPartida(usuarios, player, nave, asteroides, num_ast, balas, num_balas);
 	    	
 	        sleepC(50);
 	        segundos +=0.050;

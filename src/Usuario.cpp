@@ -8,12 +8,17 @@ using namespace std;
 
 int Usuario::MAX = 50;
 
-
+Usuario::Usuario()
+{
+	this->objects = new int[1];
+	this->objects[0] = -1;
+}
 Usuario::~Usuario()
 {
 	delete [] nickname;
 	delete [] contrasenya;
 	delete [] puntuaciones;
+	delete[] objects;
 }
 void Usuario::setNickname (char* n) 
 {
@@ -42,13 +47,14 @@ void Usuario::setPuntuacionSupervivencia (float f)
 	this->puntuaciones[1] = f;
 }
 
-int Usuario::getObjects() const
+int* Usuario::getObjects() const
 {
 	return this->objects;
 }
-void Usuario::setObjects(Objects objects)
+void Usuario::setObjects()
 {
-	this->objects = objects;
+	delete[] this->objects;
+	this->objects = new int[432];
 }
 
 Usuario& Usuario::operator=(const Usuario &a)
@@ -126,13 +132,70 @@ void Usuario::escribirUsuarios(Usuario *usuarios, int size)
 		if (i == size-1)
 		{
 			fprintf(file, "%s;%s;%0.2f;%0.2f", usuarios[i].nickname, usuarios[i].contrasenya, usuarios[i].puntuaciones[0], usuarios[i].puntuaciones[1]);
+
+			int* objects = usuarios[i].getObjects();
+			cout << objects[0];
+			if(objects[0] != -1)
+			{
+				fprintf(file, ";1\n%d;%d;%d", objects[0], objects[1], objects[2]);
+
+				if(objects[2] > 0)
+				{
+					for(int i=0; i<objects[2]; i++)
+					{
+						fprintf(file, ";%d", objects[i+3]);
+					}
+				}
+
+				fprintf(file, ";%d", objects[3+objects[2]]);
+
+				if(objects[3+objects[2]] > 0)
+				{
+					for(int i=0; i<objects[3+objects[2]]; i++)
+					{
+						fprintf(file, ";%d", objects[i+4+objects[2]]);
+					}
+				}
+			}
+			else
+				fprintf(file, ";0");
 		}
 
 		else
 		{
-			fprintf(file, "%s;%s;%0.2f;%0.2f\n", usuarios[i].nickname, usuarios[i].contrasenya, usuarios[i].puntuaciones[0], usuarios[i].puntuaciones[1]);
+			fprintf(file, "%s;%s;%0.2f;%0.2f", usuarios[i].nickname, usuarios[i].contrasenya, usuarios[i].puntuaciones[0], usuarios[i].puntuaciones[1]);
+
+			int* objects = usuarios[i].getObjects();
+
+			if(objects[0] != -1)
+			{
+				fprintf(file, ";1\n%d;%d;%d", objects[0], objects[1], objects[2]);
+
+				if(objects[2] > 0)
+				{
+					for(int i=0; i<objects[2]; i++)
+					{
+						fprintf(file, ";%d", objects[i+3]);
+					}
+				}
+
+				fprintf(file, ";%d", objects[3+objects[2]]);
+
+				if(objects[3+objects[2]] > 0)
+				{
+					for(int i=0; i<objects[3+objects[2]]; i++)
+					{
+						fprintf(file, ";%d", objects[i+4+objects[2]]);
+					}
+				}
+			}
+			else
+				fprintf(file, ";0");
+
+			fprintf(file, "\n");
 		}
 	}
+
 	fclose(file);
 	delete file;
 }

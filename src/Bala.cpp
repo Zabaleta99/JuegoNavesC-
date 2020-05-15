@@ -2,7 +2,7 @@
 
 int Bala::getX() const
 {
-	return x;
+	return this->x;
 }
 void Bala::setX(int x)
 {
@@ -10,7 +10,7 @@ void Bala::setX(int x)
 }
 int Bala::getY() const
 {
-	return y;
+	return this->y;
 }
 void Bala::setY(int y)
 {
