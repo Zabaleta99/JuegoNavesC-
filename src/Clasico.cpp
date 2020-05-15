@@ -1,4 +1,5 @@
 #include "Clasico.h"
+#include "Objects.h"
 
 #ifdef _WIN32
 	#include <windows.h>
@@ -390,6 +391,33 @@ void Clasico::movimientosJugadorC(int tecla, NaveClasico* nave, Bala* balas, int
     }
 }
 
+void guardarPartida(Usuario* usuarios, int player, NaveClasico* nave, Asteroide* asteroides, int* num_ast, Bala* balas, int* num_balas)
+{
+	Object* objects = usuarios[player].getObjects().getArray();
+
+	objects[0] = *nave;
+
+	Number size = *num_ast;
+	objects[1] = size;
+	if(*num_ast > 0)
+	{
+		for(int i=0; i<*num_ast; i++)
+		{
+			objects[i+2] = asteroides[i];
+		}
+	}
+
+	Number size = *num_balas;
+	objects[2+*num_ast] = size;
+	if(*num_balas > 0)
+	{
+		for(int i=0; i<*num_balas; i++)
+		{
+			objects[i+3+*num_ast] = balas[i];
+		}
+	}
+}
+
 void Clasico::jugar(Usuario* usuarios, int player)
 {
 	curs_set(0);
@@ -500,7 +528,9 @@ void Clasico::jugar(Usuario* usuarios, int player)
 
 	    	tecla = wgetch(ventana);
 	    	movimientosJugadorC(tecla, nave, balas, num_balas);
-
+	    	if(tecla == "s")
+	    		guardarPartida(usuarios, player, nave, asteroides, num_ast, balas, num_balas);
+	    	
 	        sleepC(50);
 	        segundos +=0.050;
 	        tiempo +=0.050;

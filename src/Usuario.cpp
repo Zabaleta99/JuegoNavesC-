@@ -42,6 +42,15 @@ void Usuario::setPuntuacionSupervivencia (float f)
 	this->puntuaciones[1] = f;
 }
 
+int Usuario::getObjects() const
+{
+	return this->objects;
+}
+void Usuario::setObjects(Objects objects)
+{
+	this->objects = objects;
+}
+
 Usuario& Usuario::operator=(const Usuario &a)
 {
 	this->nickname = new char[strlen(a.nickname)+1];

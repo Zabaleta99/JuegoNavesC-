@@ -1,6 +1,7 @@
 #ifndef USUARIO_H_
 #define USUARIO_H_
 
+#include "Objects.h"
 #include <stdio.h>
 
 class Usuario
@@ -9,6 +10,7 @@ class Usuario
 		char* nickname;
 		char* contrasenya;
 		float* puntuaciones;
+		Objects objects;
 		static int MAX;
 
 	public:
@@ -24,6 +26,9 @@ class Usuario
 
 		void setPuntuacionClasico (float f);
 		void setPuntuacionSupervivencia (float f);
+
+		int getObjects() const;
+		void setObjects(Objects objects);
 
 		Usuario* leerUsuarios(FILE *file, int *size);
 		void escribirUsuarios(Usuario *usuarios, int size);
